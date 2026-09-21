@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Écrit les sept pages HTML du site à partir des modules Python.
+"""Écrit les pages HTML du site à partir des modules Python.
 
     python scripts/construire.py            # écrit les pages
     python scripts/construire.py --verifier # échoue si elles ne sont pas à jour
@@ -58,7 +58,7 @@ def main() -> int:
         print("Relancer : python scripts/construire.py", file=sys.stderr)
         return 1
     if arguments.verifier:
-        print("Les sept pages sont à jour.")
+        print(f"Les {len(ORDRE)} pages sont à jour.")
     return 0
 
 

@@ -1857,3 +1857,91 @@ body.calcul-en-cours main { opacity: 0.45; transition: opacity 0.2s; }
    d'un paragraphe. */
 ul.serree { margin: 0.5rem 0; padding-left: 1.2rem; }
 ul.serree li { margin: 0.35rem 0; }
+
+/* Le renvoi qui suit un chiffre : l'année de ses données, cliquable, qui mène
+   à sa fiche dans `chiffres.html`. Il doit se voir sans casser la ligne — un
+   lecteur qui ne le cherche pas ne doit pas buter dessus, un lecteur qui
+   conteste le chiffre doit le trouver du premier coup d'œil. */
+.renvoi {
+  font-size: 0.7em; font-weight: 700; font-variant-numeric: tabular-nums;
+  vertical-align: 0.4em; margin-left: 0.15em; padding: 0 0.25em;
+  text-decoration: none; border-bottom: none;
+  border: 1px solid currentColor; border-radius: 2px; white-space: nowrap;
+}
+.renvoi:hover, .renvoi:focus-visible { background: var(--or); color: var(--fond); }
+.creme .renvoi { color: var(--sur-creme-accent); }
+/* Un chiffre appelé au registre : chasse fixe, pour que deux chiffres
+   superposés dans deux paragraphes s'alignent. */
+.nombre { font-variant-numeric: tabular-nums; font-weight: 700; }
+
+/* La page « Tous les chiffres » : une fiche par chiffre, en grille. Chaque
+   fiche se découpe — une capture d'une seule fiche doit rester complète et
+   compréhensible hors du site, réserve de méthode comprise. */
+.chiffres-grille {
+  display: grid; gap: clamp(1rem, 2.5vw, 1.75rem); margin: 1.5rem 0 2.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(22rem, 100%), 1fr));
+}
+.chiffre-fiche {
+  border: 1px solid var(--trait-champ); border-top: 4px solid var(--or);
+  padding: clamp(1rem, 3vw, 1.5rem); background: var(--fond-carte);
+}
+.chiffre-fiche > .valeur {
+  margin: 0 0 0.75rem; font-size: clamp(1.75rem, 5vw, 2.5rem);
+  font-weight: 900; letter-spacing: -0.04em; line-height: 1;
+  color: var(--or); font-variant-numeric: tabular-nums;
+}
+.chiffre-fiche .gloses { margin: 0; }
+.chiffre-fiche .note { margin-top: 1rem; }
+/* La cible d'un renvoi : un liseré le temps que l'œil trouve la fiche qu'il
+   vient de demander. Sans cela, arriver sur une grille de vingt-sept fiches
+   identiques ne dit pas laquelle on cherchait. */
+.chiffre-fiche:target { outline: 3px solid var(--or); outline-offset: 4px; }
+
+/* ==========================================================================
+   LE COMPARATEUR À TROIS COLONNES
+   --------------------------------------------------------------------------
+   Une mesure et une promesse ne se comparent pas sans qu'on le dise. Les
+   barres PLEINES sont des délais constatés ; les barres HACHURÉES sont des
+   délais qu'un texte promet — celui d'aujourd'hui au milieu, celui que nous
+   proposons à droite. La distinction ne repose pas sur la seule couleur : la
+   légende l'écrit, et chaque étape porte sa durée en toutes lettres.
+   ========================================================================== */
+.parcours.trois {
+  grid-template-columns: repeat(auto-fit, minmax(min(16rem, 100%), 1fr));
+}
+.barre.constate > span { background: var(--actuel); }
+/* Le hachurage : la couleur reste celle de la charte, le motif dit « promis ».
+   `repeating-linear-gradient` plutôt qu'une image — rien à télécharger, et le
+   motif suit la couleur si la charte change. */
+.barre.garanti > span,
+.barre.promesse > span {
+  background-image: repeating-linear-gradient(135deg,
+    rgba(11, 61, 58, 0.55) 0 4px, transparent 4px 8px);
+}
+.barre.garanti > span { background-color: var(--retroactif-employeur); }
+.barre.promesse > span { background-color: var(--liberal); }
+/* Une étape sans terme : la barre occupe toute l'échelle et s'efface vers la
+   droite. C'est l'argument central de la colonne du milieu — aujourd'hui, la
+   loi ne promet pas un délai long, elle n'en promet aucun. */
+.barre.sans-terme > span {
+  -webkit-mask-image: linear-gradient(to right, #000 55%, transparent);
+  mask-image: linear-gradient(to right, #000 55%, transparent);
+}
+.parcours .etapes > li.sans-terme .duree { font-style: italic; }
+/* La légende des motifs, au-dessus du comparateur : elle doit être lue avant
+   les barres, pas après. */
+.legende-barres {
+  display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem;
+  margin: 1rem 0 0; padding: 0; list-style: none;
+  font-size: 0.9rem; color: var(--sur-creme-doux);
+}
+.legende-barres > li { display: flex; align-items: center; gap: 0.5rem; }
+.legende-barres .temoin {
+  flex: none; width: 2.25rem; height: 10px; border: 1px solid var(--creme-trait);
+}
+.legende-barres .temoin.constate { background: var(--actuel); }
+.legende-barres .temoin.garanti {
+  background-color: var(--retroactif-employeur);
+  background-image: repeating-linear-gradient(135deg,
+    rgba(11, 61, 58, 0.55) 0 4px, transparent 4px 8px);
+}

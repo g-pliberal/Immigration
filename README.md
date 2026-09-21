@@ -1,21 +1,22 @@
 # Immigration — le programme du Parti libéral français
 
-Un site statique de sept pages : ce que fait la France aujourd'hui en matière
+Un site statique de huit pages : ce que fait la France aujourd'hui en matière
 d'immigration, pourquoi ce système rate ses propres objectifs, et l'alternative
-libérale que le parti propose — avec ses coûts, ses limites et les objections
-qu'on lui oppose.
+libérale que le parti propose — avec son chiffrage, ses limites, les onze
+objections qu'on lui oppose, et les trois seuils qui nous donneraient tort.
 
 **Le site : [g-pliberal.github.io/immigration](https://g-pliberal.github.io/immigration/)**
 
 | Page | Ce qu'on y trouve |
 | --- | --- |
-| `index.html` | La promesse et les six engagements |
-| `aujourdhui.html` | Le droit en vigueur et les chiffres publics |
+| `index.html` | La promesse, les sept engagements, et où s'arrête l'ouverture |
+| `aujourdhui.html` | Le droit en vigueur, le pacte européen, et les chiffres publics |
 | `blocages.html` | Les cinq mécanismes qui font échouer le système |
-| `programme.html` | Les six engagements, texte par texte, avec calendrier et coût |
-| `parcours.html` | Un comparateur : le même cas, aujourd'hui et après |
-| `objections.html` | Sept objections dans leur version forte, et nos réponses |
-| `sources.html` | Les sources publiques, la méthode, et ce que le site ne garantit pas |
+| `programme.html` | Les sept engagements, texte par texte, avec calendrier et chiffrage |
+| `parcours.html` | Un comparateur : le même cas, en trois colonnes |
+| `objections.html` | Onze objections dans leur version forte, et nos réponses |
+| `chiffres.html` | Chaque chiffre du site, sa source, son millésime, sa réserve |
+| `sources.html` | Les sources, la méthode, et ce que nous avons corrigé |
 
 ## L'apparence
 
@@ -39,7 +40,7 @@ sert telles quelles, sans étape de construction. On ne les modifie donc jamais
 à la main — on modifie le module Python qui les produit, et on relance :
 
 ```sh
-python scripts/construire.py            # écrit les sept pages
+python scripts/construire.py            # écrit les huit pages
 python scripts/construire.py --verifier # échoue si elles ne sont pas à jour
 python scripts/verifier.py              # pages à jour, liens, ancres, ressources
 ```
@@ -59,6 +60,7 @@ moteur/polices/                  Public Sans et Instrument Serif (OFL)
 moteur/icones/                   les tracés Lucide (ISC) recopiés sans retouche
 moteur/js/parcours.js            le comparateur, sans dépendance
 src/immigration/gabarit.py       bandeau, affiche, pied, fragments communs
+src/immigration/chiffres.py      LE REGISTRE : un chiffre, sa source, sa réserve
 src/immigration/pages/           une page = un module
 scripts/construire.py            écrit les pages
 scripts/verifier.py              vérifie le dépôt sans rien installer
@@ -71,17 +73,49 @@ de diverger.
 
 ## Les chiffres
 
-Tout chiffre cité vient d'une publication publique et datée — DGEF, INSEE,
-OFPRA, CNDA, Cour des comptes, Conseil d'État, OCDE, CEPII. Ils sont **arrondis
-volontairement** : les séries migratoires sont révisées d'une publication à
-l'autre, et une précision au millier survit rarement à la suivante. La page
-[Sources et méthode](sources.html) les rassemble, avec ce que le site
-s'interdit et ce qu'il ne sait pas.
+**Les valeurs ne sont écrites qu'à un seul endroit** :
+`src/immigration/chiffres.py`, une entrée par chiffre, avec ce qu'il mesure, sa
+source, l'URL, l'année des *données*, l'évolution, et — le champ qui fait le
+travail — la **réserve de méthode** : ce que le chiffre ne dit pas.
 
-Les chiffres sont arrêtés à la date indiquée dans `MILLESIME`
-(`src/immigration/gabarit.py`), reprise dans le pied de chaque page. Un chiffre
-périmé, une source qui manque, une objection mal formulée : les corrections se
-proposent en *issue* ou en *pull request*.
+Les fiches de repères et les tableaux de chiffres sont **construits** depuis ce
+registre (`g.nombre("premiers-titres")`, `g.reperes_chiffres([…])`) : ils ne
+peuvent pas diverger des fiches, et une clé inconnue fait échouer la
+construction. Quand un chiffre est repris dans une phrase, pour qu'elle se
+lise, il porte le renvoi `g.renvoi("…")` qui mène à sa fiche.
+
+`chiffres.html` est le rendu direct de ce registre : chaque chiffre du site
+renvoie à sa fiche par le petit lien qui le suit.
+
+Deux dates, et jamais une seule (`src/immigration/gabarit.py`) : `RELECTURE`
+est la date de la dernière relecture du site, `MILLESIME` l'année des données
+les plus récentes citées. Les confondre donnait à des chiffres vieux de deux
+ans l'apparence de la fraîcheur — c'était le cas, et c'est corrigé.
+
+Un chiffre périmé, une source qui manque, une objection mal formulée : les
+corrections se proposent en *issue* ou en *pull request*.
+
+## Ce que la relecture adverse a changé
+
+Le site a été relu ligne à ligne comme l'aurait fait un contradicteur
+compétent. Les dix corrections principales sont publiées sur le site lui-même,
+dans [Sources et méthode](sources.html#corrections) — un programme qui se
+corrige en silence donne à penser qu'il a quelque chose à cacher. En résumé :
+
+- **l'engagement 5 a été refondé.** La carence de cinq ans sur les prestations
+  non contributives est contraire à la Constitution (décision n° 2024-6 RIP du
+  11 avril 2024, censure au fond), au droit de l'Union (directive 2011/98) et à
+  trente-neuf conventions bilatérales. Le programme ne crée plus aucune carence ;
+- **les chiffres sont passés aux données 2025** (384 230 premiers titres,
+  l'ordre des motifs a changé) ;
+- **le pacte européen** appliqué depuis le 12 juin 2026 et **l'expiration de
+  l'article L. 435-4** au 31 décembre 2026 sont traités ;
+- **un septième engagement** répond à « qui décide ? » : débat annuel,
+  critères révisables, et trois seuils chiffrés qui nous donneraient tort ;
+- **le comparateur a trois colonnes**, l'étape consulaire est rétablie et les
+  barres promises sont hachurées ;
+- **un chiffrage** poste par poste remplace « le coût net est probablement
+  négatif ».
 
 ## Licences
 

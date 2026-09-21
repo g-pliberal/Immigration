@@ -1,10 +1,12 @@
-"""Le gabarit du site : ce qui est commun aux sept pages.
+"""Le gabarit du site : ce qui est commun aux huit pages.
 
 Le site est fait de fichiers HTML statiques, écrits par ``scripts/construire.py``
 à partir des modules de ``src/immigration/pages/``. Pourquoi un générateur
-plutôt que sept fichiers tenus à la main : le bandeau, le pied de page, la
-navigation et les avertissements de méthode sont les mêmes partout, et sept
-copies d'un même bandeau divergent dès la première correction.
+plutôt que huit fichiers tenus à la main : le bandeau, le pied de page, la
+navigation et les avertissements de méthode sont les mêmes partout, et huit
+copies d'un même bandeau divergent dès la première correction. La même raison
+vaut pour les chiffres, qui vivent dans ``chiffres.py`` et que ce module sait
+poser dans une page (voir ``nombre`` et ``renvoi``).
 
 L'apparence — variables de couleur, noms de classes, polices — est celle du
 dépôt `retraitecomptenotionelle`, reprise sans retouche (voir
@@ -16,13 +18,22 @@ from __future__ import annotations
 
 from html import escape
 
+from .chiffres import CHIFFRES, Chiffre, chiffre
+
 DEPOT = "https://github.com/g-pliberal/immigration"
 SITE_PARENT = "https://partiliberalfrancais.fr/"
 
-# La date des chiffres cités. Elle apparaît dans le pied de page de chaque
-# page : un chiffre d'immigration sans millésime ne vaut rien, et le lecteur
-# doit savoir d'un coup d'œil si la page a vieilli.
-MILLESIME = "septembre 2026"
+# DEUX dates, et jamais une seule. Le site confondait la date de sa dernière
+# relecture et le millésime des chiffres qu'il cite : un pied de page qui
+# annonçait « chiffres arrêtés en septembre 2026 » sous un tableau de données
+# 2023. La confusion est l'erreur la plus facile à retourner contre nous —
+# elle donne à des chiffres vieux de deux ans l'apparence de la fraîcheur.
+#
+# `RELECTURE` est la date à laquelle le site a été relu et corrigé.
+# `MILLESIME` est l'année des données les plus récentes qu'il cite ; chaque
+# chiffre porte en outre la sienne dans `chiffres.py`, qui fait foi.
+RELECTURE = "septembre 2026"
+MILLESIME = "2025"
 
 # Les pages, dans l'ordre où elles se lisent, groupées comme le bandeau les
 # montre. Le premier élément d'un couple est le fichier, le second le libellé.
@@ -37,6 +48,7 @@ GROUPES_NAVIGATION: tuple[tuple[str, tuple[tuple[str, str], ...]], ...] = (
     )),
     ("Pour aller plus loin", (
         ("objections.html", "Objections"),
+        ("chiffres.html", "Tous les chiffres"),
         ("sources.html", "Sources"),
     )),
 )
@@ -101,7 +113,7 @@ def entete(page_active: str) -> str:
 
     Le nom du site n'est pas un ``<h1>`` : chaque page porte son propre titre,
     énorme, et c'est lui le ``<h1>``. « Immigration » est le nom du site,
-    répété à l'identique sur sept pages.
+    répété à l'identique sur huit pages.
     """
     return f"""<a class="evitement" href="#contenu">Aller au contenu</a>
 <header class="bandeau"><div class="interieur">
@@ -233,6 +245,59 @@ def tableau(entetes: list[str], lignes: list[list[str]], legende: str = "",
             f"<tbody>{corps}</tbody></table></div>")
 
 
+# ---------------------------------------------------------------------------
+# Les chiffres dans le texte
+#
+# Aucune page n'écrit plus un chiffre en clair : elle appelle `nombre("cle")`,
+# et le registre fournit la valeur. Un chiffre corrigé dans `chiffres.py` se
+# corrige partout, et un chiffre sans entrée au registre fait échouer la
+# construction — ce qui est le but.
+# ---------------------------------------------------------------------------
+
+
+def nombre(cle: str, avec_renvoi: bool = True) -> str:
+    """Un chiffre du registre, suivi du renvoi vers sa fiche.
+
+    Le renvoi est un lien discret vers ``chiffres.html``, où le lecteur trouve
+    la source, le millésime et la réserve de méthode. C'est ce qui rend la
+    promesse « un chiffre, une source, un millésime » vérifiable en un clic
+    plutôt qu'affirmée en bas de page.
+    """
+    c = chiffre(cle)
+    texte = f'<span class="nombre">{c.valeur}</span>'
+    return texte + renvoi(cle) if avec_renvoi else texte
+
+
+def renvoi(cle: str) -> str:
+    """Le renvoi seul, pour une phrase qui cite le chiffre à sa façon."""
+    c = chiffre(cle)
+    titre = f"{c.mesure} — {c.source}, données {c.annee}"
+    return (f'<a class="renvoi" href="chiffres.html#c-{cle}" '
+            f'title="{escape(titre)}"><span class="hors-ecran">Source du '
+            f'chiffre, année des données : </span>'
+            f'{escape(c.annee)}</a>')
+
+
+def fiche_chiffre(cle: str, etiquette: str = "") -> str:
+    """Une fiche de repère construite depuis le registre.
+
+    L'étiquette par défaut est ce que le chiffre mesure, et la précision porte
+    le millésime et la source : une fiche qui se recopie sans sa source est
+    une fiche qui finira citée de travers.
+    """
+    c = chiffre(cle)
+    precision = f'{escape(c.mesure)} — {escape(c.source.split(",")[0])}, '
+    precision += f'{escape(c.annee)}{renvoi(cle)}'
+    return fiche(etiquette or c.mesure.split(" —")[0], c.valeur, precision)
+
+
+def reperes_chiffres(entrees: list[tuple[str, str]]) -> str:
+    """Les trois ou quatre chiffres d'ouverture, pris au registre."""
+    return ('<div class="fiches reperes">'
+            + "".join(fiche_chiffre(cle, etiquette)
+                      for cle, etiquette in entrees) + "</div>")
+
+
 def pied() -> str:
     """Pied de page : d'où viennent les chiffres, et ce que la page n'est pas.
 
@@ -245,9 +310,12 @@ def pied() -> str:
   Parti libéral français propose à leur place. Il ne vaut ni conseil
   juridique, ni information administrative : pour une démarche, voir
   <a href="https://www.service-public.fr/particuliers/vosdroits/N110">service-public.fr</a>.</p>
-  <p>Chiffres arrêtés en {MILLESIME}, sources publiques citées page par page et
-  rassemblées dans <a href="sources.html">Sources et méthode</a> — les relire
-  avant de citer un chiffre. Textes et infographies sous
+  <p><strong>Site relu en {RELECTURE}</strong> ; chiffres les plus récents
+  cités : données <strong>{MILLESIME}</strong>. Les deux dates diffèrent, et
+  c'est normal : une donnée migratoire est publiée l'année suivante. Chaque
+  chiffre porte la sienne dans <a href="chiffres.html">Tous les chiffres</a>,
+  avec sa source et sa réserve de méthode ; la
+  <a href="sources.html">méthode</a> dit le reste. Textes et infographies sous
   <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.fr">CC BY-SA 4.0</a>,
   code sous licence Apache 2.0, le tout sur <a href="{DEPOT}">GitHub</a>.</p>
   <p class="retour-site">Un site du
