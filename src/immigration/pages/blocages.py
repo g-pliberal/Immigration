@@ -10,8 +10,8 @@ PAGE = {
     "description": (
         "Autorisation préalable de travailler, délais sans sanction, asile "
         "interminable, décisions inexécutées : les cinq mécanismes qui font "
-        "échouer la politique migratoire française, et ce que dit la recherche "
-        "économique."),
+        "échouer la politique migratoire française, et ce que dit — et ne dit "
+        "pas — la recherche économique."),
 }
 
 
@@ -50,7 +50,12 @@ tenaces : corriger l'un sans les autres ne produit presque rien.</p>
               "Résultat : un aide-soignant manque à l'hôpital pendant que son "
               "dossier attend, et une entreprise renonce à recruter plutôt que "
               "d'attendre six mois une réponse qu'elle ne peut pas "
-              "anticiper.</p>",
+              "anticiper.</p>"
+              "<p>Le résultat se lit dans les chiffres : le motif économique "
+              "a reculé de 13 % en un an, et les titres saisonniers "
+              "d'environ 30 %. C'est le seul motif que la politique "
+              "migratoire pilote réellement, et c'est celui qui baisse."
+              + g.renvoi("titres-economique") + "</p>",
         source="Code du travail, art. L. 5221-2 ; liste des métiers en tension "
                "fixée par arrêté.")
 
@@ -60,16 +65,17 @@ tenaces : corriger l'un sans les autres ne produit presque rien.</p>
         "les délais — et son silence prolongé vaut décision de refus, qu'il "
         "faut attaquer au tribunal.",
         corps="<p>Dans presque tout le droit administratif français, le "
-              "silence de l'administration vaut acceptation depuis 2013. Le "
-              "droit des étrangers est l'une des grandes exceptions : là, le "
-              "silence vaut rejet. La conséquence est mécanique — la lenteur "
-              "devient gratuite pour celui qui la produit, et très coûteuse "
-              "pour celui qui la subit. C'est ainsi qu'un pays finit avec des "
+              "silence de l'administration vaut acceptation depuis la loi du "
+              "12 novembre 2013, entrée en vigueur en 2014. Le droit des "
+              "étrangers est l'une des grandes exceptions : là, le silence "
+              "vaut rejet. La conséquence est mécanique — la lenteur devient "
+              "gratuite pour celui qui la produit, et très coûteuse pour "
+              "celui qui la subit. C'est ainsi qu'un pays finit avec des "
               "files d'attente nocturnes devant ses préfectures et des "
               "référés pour obtenir un rendez-vous.</p>",
         source="Défenseur des droits, rapports sur la dématérialisation des "
-               "services publics ; jurisprudence des référés « mesures "
-               "utiles ».")
+               "services publics ; Conseil d'État, 3 juin 2022, n° 452798 ; "
+               "jurisprudence des référés « mesures utiles ».")
 
     corps += g.cle(
         "3. L'asile long, et l'interdiction de travailler pendant",
@@ -77,19 +83,23 @@ tenaces : corriger l'un sans les autres ne produit presque rien.</p>
         "puis on lui reproche de ne pas s'intégrer.",
         corps="<p>Un adulte valide, souvent qualifié, reste hébergé et "
               "indemnisé sans avoir le droit de gagner sa vie, pendant que sa "
-              "demande chemine. Les pays qui ont ouvert le travail plus tôt "
-              "— et la France l'a fait par exception depuis 2024 pour "
-              "certaines nationalités — n'ont pas constaté l'afflux annoncé, "
-              "mais une baisse du coût d'hébergement et un meilleur taux "
-              "d'emploi ultérieur, y compris pour les réfugiés "
-              "reconnus.</p>",
+              "demande chemine. Et la majorité de ces personnes obtiendront "
+              "une protection : le taux est désormais de 52 %, recours "
+              "compris." + g.renvoi("asile-protection") + " Nous faisons donc "
+              "attendre dix-huit mois, aux frais du contribuable, des gens "
+              "dont plus d'un sur deux avait droit à rester dès le premier "
+              "jour.</p>"
+              "<p>Les pays qui ont ouvert le travail plus tôt n'ont pas "
+              "constaté l'afflux annoncé, mais une baisse du coût "
+              "d'hébergement et un meilleur taux d'emploi ultérieur, y "
+              "compris pour les réfugiés reconnus.</p>",
         source="CESEDA, art. L. 554-1 ; rapports OFPRA/CNDA ; travaux de "
                "l'OCDE sur l'insertion des réfugiés.")
 
     corps += g.cle(
         "4. Des décisions d'éloignement qu'on ne peut pas exécuter",
-        "Prononcer 130 000 obligations de quitter le territoire pour en "
-        "exécuter moins d'une sur dix n'est pas de la fermeté : c'est un "
+        "Prononcer 140 000 obligations de quitter le territoire pour en "
+        "exécuter environ une sur neuf n'est pas de la fermeté : c'est un "
         "système qui écrit des décisions sans effet.",
         corps="<p>L'exécution suppose un laissez-passer consulaire que le pays "
               "d'origine délivre ou non, une personne localisée, des places de "
@@ -98,21 +108,34 @@ tenaces : corriger l'un sans les autres ne produit presque rien.</p>
               "décisions symboliques sature les tribunaux et détourne les "
               "moyens de la petite minorité de cas — étrangers condamnés, "
               "menaces à l'ordre public — où l'éloignement est à la fois "
-              "possible et nécessaire.</p>",
-        source="Cour des comptes et rapports parlementaires sur "
-               "l'exécution des mesures d'éloignement.")
+              "possible et nécessaire.</p>"
+              "<p><strong>Deux précisions d'honnêteté.</strong> Les "
+              "éloignements <em>augmentent</em> : 24 985 l'an dernier, en "
+              "hausse de 15,7 %." + g.renvoi("eloignements") + " Et le « taux "
+              "d'exécution » est un ratio dont nous ne voulons pas dépendre : "
+              "il compare des décisions d'une année à des départs d'une "
+              "autre, et laisse au dénominateur des mesures que personne ne "
+              "peut exécuter. Il ne mesure pas une volonté ; il mesure un "
+              "écart entre l'écrit et le possible. C'est suffisant.</p>",
+        source="Cour des comptes, « La politique de lutte contre l'immigration "
+               "irrégulière », janvier 2024." + g.renvoi("oqtf-executees"))
 
     corps += g.cle(
         "5. Le titre d'un an, et la file d'attente qu'il crée",
         "L'essentiel des demandes traitées en préfecture ne sont pas des "
         "arrivées : ce sont des renouvellements de gens déjà là, déjà en "
         "règle, déjà employés.",
-        corps="<p>Un titre d'un an oblige son détenteur à redéposer un dossier "
-              "tous les ans, deux à quatre mois avant l'échéance. "
-              "Multiplié par des millions de titres valides, ce rythme "
+        corps="<p>Le chiffre est sans appel : <strong "
+              "class=\"cle-texte\">955 080 titres renouvelés contre 384 230 "
+              "premiers titres</strong> — deux fois et demie plus de "
+              "renouvellements que d'arrivées, et une hausse de 7,6 % en un "
+              "an." + g.renvoi("renouvellements") + " Un titre d'un an oblige "
+              "son détenteur à redéposer un dossier tous les ans, deux à "
+              "quatre mois avant l'échéance.</p>"
+              "<p>Multiplié par des millions de titres valides, ce rythme "
               "engorge le guichet, occupe des agents à re-vérifier ce qu'ils "
-              "ont vérifié l'an passé, et crée des ruptures de droits "
-              "— perte d'emploi, de logement, de compte bancaire — quand le "
+              "ont vérifié l'an passé, et crée des ruptures de droits — perte "
+              "d'emploi, de logement, de compte bancaire — quand le "
               "renouvellement arrive en retard.</p>",
         source="Rapports de la Cour des comptes sur l'accueil des étrangers "
                "en préfecture ; Défenseur des droits.")
@@ -131,6 +154,11 @@ toutes. Elles travaillent au noir, sans cotiser, sans recours contre un
 employeur qui abuse, en tirant vers le bas les conditions de leurs collègues
 déclarés. La règle n'a pas empêché le travail ; elle l'a rendu invisible et
 sans droits.</p>
+<p><strong>Aucune statistique ne dénombre cette population</strong>, et il faut
+le dire avant de l'estimer : les chiffres qui circulent — de 300 000 à
+900 000 — sont des extrapolations faites à partir de l'aide médicale de l'État
+ou des régularisations, et aucun n'a la solidité des chiffres cités ailleurs
+sur ce site. Nous n'en retenons aucun.</p>
 """
 
     corps += g.points([
@@ -141,42 +169,50 @@ sans droits.</p>
          "Une concurrence qui ne peut ni se syndiquer, ni refuser, ni porter "
          "plainte : le pire concurrent possible sur un marché du travail."),
         ("Ce qu'elle coûte à l'État",
-         "Des cotisations jamais perçues, un contentieux massif, et un "
-         "appareil d'éloignement qui tourne à vide."),
+         "Des cotisations jamais perçues, un contentieux massif, et environ "
+         "1,8 milliard par an de lutte que la Cour des comptes juge "
+         "inefficace." + g.renvoi("irreguliere-cout")),
         ("Ce qu'elle coûte à la confiance",
          "Une loi que chacun sait inappliquée nourrit l'idée que l'État ne "
          "contrôle plus rien — le carburant du discours le plus dur."),
     ])
 
     corps += """
-<h2 id="recherche">Ce que dit la recherche économique</h2>
+<h2 id="recherche">Ce que dit la recherche économique — et ce qu'elle ne dit pas</h2>
 <p>Le débat français se passe souvent d'elle. Elle existe pourtant, elle est
-abondante, et ses résultats sont plus stables que les discours ne le
-laissent croire. Trois d'entre eux comptent ici.</p>
+abondante, et ses résultats sont plus stables que les discours ne le laissent
+croire. Ils sont aussi plus disputés que ne le laisse croire le camp qui nous
+est favorable, et nous préférons l'écrire.</p>
 """
 
     corps += g.tableau(
-        ["Question", "Ce que trouve la littérature", "Réserves"],
+        ["Question", "Ce que trouve la littérature", "Ce qui reste disputé"],
         [["Effet sur les salaires des natifs",
           "Faible à nul en moyenne ; les effets négatifs, quand ils "
-          "apparaissent, se concentrent sur les immigrés déjà installés plutôt "
-          "que sur les natifs",
-          "Les études portent sur des chocs observés, souvent locaux ; "
-          "l'extrapolation à une ouverture généralisée reste discutée"],
+          "apparaissent, se concentrent sur les immigrés déjà installés et "
+          "sur les natifs les moins qualifiés du même bassin",
+          "L'épisode de Mariel (Card, 1990), longtemps donné comme preuve, a "
+          "été contesté par Borjas (2016) puis redéfendu par Peri et Yasenov. "
+          "La controverse n'est pas tranchée : qui la cache s'expose"],
          ["Effet sur l'emploi des natifs",
-          "Pas d'effet de substitution massif : l'arrivée de travailleurs crée "
-          "aussi de la demande, des entreprises et des emplois",
-          "Les ajustements prennent du temps et pèsent davantage sur certains "
-          "bassins d'emploi"],
+          "Pas d'effet de substitution massif à l'échelle d'un pays : "
+          "l'arrivée de travailleurs crée aussi de la demande, des "
+          "entreprises et des emplois",
+          "Dustmann, Schönberg et Stuhler trouvent au contraire, sur les "
+          "navetteurs tchèques, des effets négatifs marqués sur l'emploi "
+          "local. L'ampleur dépend de la rigidité des salaires et de la "
+          "vitesse d'ajustement"],
          ["Solde budgétaire",
           "Proche de zéro, de l'ordre de quelques dixièmes de point de PIB, "
           "positif ou négatif selon la méthode et l'âge des arrivants",
-          "Très sensible au taux d'emploi : c'est lui, et non le nombre "
-          "d'entrées, qui fait basculer le solde"]],
+          "Très sensible aux conventions : imputation des biens publics, "
+          "horizon retenu, traitement des descendants. Aucun chiffre unique "
+          "ne fait consensus"]],
         legende="Synthèse des ordres de grandeur issus de la littérature "
                 "économique (voir Sources). Les études citées portent sur des "
-                "pays et des périodes différents ; aucune ne dit ce que "
-                "produirait exactement la réforme proposée ici.",
+                "pays et des périodes différents ; <strong>aucune ne dit ce "
+                "que produirait exactement la réforme proposée ici</strong>, "
+                "et c'est la limite principale de tout cet argumentaire.",
         classes_colonnes=["texte", "long", "long"])
 
     corps += g.note(
@@ -187,7 +223,15 @@ laissent croire. Trois d'entre eux comptent ici.</p>
         "mondiale. La lever, même partiellement, enrichit à la fois celui qui "
         "vient, le pays qui accueille, et la famille restée au pays, dont les "
         "transferts reçus dépassent largement l'aide publique au "
-        "développement.</p>")
+        "développement.</p>"
+        "<p><strong>Et voici sa limite, que Clemens énonce lui-même.</strong> "
+        "Ce calcul suppose que les institutions du pays d'accueil — droit, "
+        "confiance, administration — continuent de produire cette "
+        "productivité. C'est une hypothèse, pas un résultat. Elle est "
+        "raisonnable pour des flux de l'ordre de ceux dont il est question "
+        "ici ; elle cesserait de l'être à une tout autre échelle. C'est l'une "
+        "des raisons pour lesquelles ce programme est borné, et le "
+        "<a href=\"index.html#limites\">dit</a>.</p>", "vigilance")
 
     corps += """
 <h2 id="faux-debat">Trois faux débats</h2>
@@ -201,12 +245,17 @@ laissent croire. Trois d'entre eux comptent ici.</p>
         "contrainte de volume à une machine déjà lente. Et il ne s'applique "
         "ni à l'asile, ni aux Européens, ni aux liens familiaux protégés par "
         "la Constitution et la Convention européenne des droits de l'homme "
-        "— c'est-à-dire aux deux tiers des entrées. Le Conseil "
-        "constitutionnel a d'ailleurs censuré la disposition en 2024.</p>"
+        "— c'est-à-dire à la majeure partie des entrées. Le Conseil "
+        "constitutionnel a censuré la disposition en 2024.</p>"
         "<p>Le libéralisme lui préfère des <strong>critères</strong> : des "
         "conditions écrites, vérifiables, connues d'avance, que chacun sait "
         "remplir ou non. Un critère se conteste devant un juge ; un quota "
-        "épuisé ne se conteste pas.</p>")
+        "épuisé ne se conteste pas.</p>"
+        "<p><strong>Mais refuser les quotas ne dispense pas de répondre à la "
+        "question qu'ils posent</strong> : qui décide, et comment le peuple "
+        "reprend-il la main s'il juge que c'est trop ? C'est l'objet de notre "
+        "<a href=\"programme.html#sept\">septième engagement</a>, et nous ne "
+        "prétendons pas que la question était illégitime.</p>")
 
     corps += g.depliant(
         "« L'immigration coûte X milliards »",
@@ -218,9 +267,10 @@ laissent croire. Trois d'entre eux comptent ici.</p>
         "une part des dépenses générales de l'État.</p>"
         "<p>La bonne question n'est pas « combien coûte l'immigration ? » mais "
         "« combien coûte l'immigration <em>empêchée de travailler</em> ? ». À "
-        "celle-là, la réponse est claire et chiffrable : l'hébergement de "
-        "l'attente, les prestations versées faute de salaire, et les "
-        "cotisations non perçues.</p>")
+        "celle-là, la réponse est chiffrable, et nous la chiffrons dans "
+        "<a href=\"programme.html#chiffrage\">le programme</a> : "
+        "l'hébergement et l'allocation de l'attente, la lutte contre "
+        "l'irrégularité, et les cotisations non perçues.</p>")
 
     corps += g.depliant(
         "« On ne peut pas accueillir toute la misère du monde »",
@@ -228,14 +278,17 @@ laissent croire. Trois d'entre eux comptent ici.</p>
         "« mais elle doit en prendre fidèlement sa part ». Le débat utile "
         "n'est pas entre zéro et l'infini : c'est celui des règles. Personne "
         "ici ne propose la suppression des frontières ni l'accès automatique "
-        "de tous à tout.</p>"
+        "de tous à tout, et nous avons écrit "
+        "<a href=\"index.html#limites\">où nous nous arrêtons</a> plutôt que "
+        "de laisser la question ouverte.</p>"
         "<p>La proposition libérale est bornée et vérifiable : un droit de "
         "venir travailler quand un employeur embauche, un contrôle réel des "
-        "identités et des casiers judiciaires, un accès aux prestations non "
-        "contributives différé, et l'exécution effective des décisions "
-        "d'éloignement. C'est plus sélectif que le système actuel sur ce qui "
-        "compte — la sécurité, la fraude — et beaucoup plus ouvert sur ce qui "
-        "enrichit tout le monde : le travail.</p>")
+        "identités et des casiers judiciaires, les règles de solidarité "
+        "existantes inchangées, l'exécution effective des décisions "
+        "d'éloignement, et un réexamen annuel devant le Parlement. C'est plus "
+        "sélectif que le système actuel sur ce qui compte — la sécurité, la "
+        "fraude — et beaucoup plus ouvert sur ce qui enrichit tout le monde : "
+        "le travail.</p>")
 
     corps += """
 <div class="actions">

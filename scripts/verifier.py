@@ -4,7 +4,7 @@
     python scripts/verifier.py
 
 Ce n'est pas un validateur HTML, et cela ne remplace pas une relecture. Cela
-attrape les trois fautes qu'on commet vraiment en écrivant un site de sept
+attrape les trois fautes qu'on commet vraiment en écrivant un site de huit
 pages à la main : une page régénérée qu'on a oublié de commiter, un lien
 interne vers un fichier ou une ancre qui n'existe pas, et une ressource
 — feuille, script, police, image — appelée mais absente du dépôt.
@@ -64,8 +64,20 @@ def main() -> int:
         fautes.append(construction.stdout.strip() + construction.stderr.strip())
 
     releve = pages()
-    if len(releve) != 7:
-        fautes.append(f"{len(releve)} pages trouvées à la racine, sept attendues")
+    # Le nombre attendu vient des modules, et non d'un nombre écrit ici : une
+    # page ajoutée sans être déclarée, ou déclarée sans être construite, doit
+    # se voir — c'est exactement la faute que ce script existe pour attraper.
+    sys.path.insert(0, str(RACINE / "src"))
+    from immigration.pages import ORDRE  # noqa: E402
+
+    attendues = {module.PAGE["fichier"] for module in ORDRE}
+    if set(releve) != attendues:
+        for orpheline in sorted(set(releve) - attendues):
+            fautes.append(f"{orpheline} : page à la racine qu'aucun module ne "
+                          "construit — la supprimer ou lui écrire un module")
+        for manquante in sorted(attendues - set(releve)):
+            fautes.append(f"{manquante} : page déclarée dans `pages/__init__.py` "
+                          "mais absente de la racine")
 
     # 2. Les liens internes mènent-ils quelque part ?
     for nom, page in releve.items():
