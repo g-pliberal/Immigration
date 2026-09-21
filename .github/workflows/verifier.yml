@@ -1,0 +1,20 @@
+# Le dépôt se vérifie sur une machine nue : les pages HTML sont versionnées, et
+# rien ne garantit sans cela qu'elles correspondent encore aux modules Python
+# qui les écrivent.
+name: Vérifier le site
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+
+jobs:
+  verifier:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Pages à jour, liens, ancres et ressources
+        run: python scripts/verifier.py

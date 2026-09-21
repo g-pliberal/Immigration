@@ -1,0 +1,23 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+.venv/
+venv/
+
+# Téléchargements bruts : volumineux, régénérables par scripts/fetch/
+data/brut/*
+!data/brut/.gitkeep
+# Playwright CLI output (may contain credentials)
+.playwright-cli/
+# Réglages Claude Code propres à la machine (Impeccable y pose son hook)
+.claude/settings.local.json
+# Moteur Impeccable : binaire de 16 Mo par plateforme, retéléchargé et vérifié
+# par .claude/skills/impeccable/scripts/impeccable au premier appel
+.claude/skills/impeccable/scripts/bin/
+# Impeccable : cache du hook et consentement local, propres à la machine
+# (le hook les inscrit aussi dans .git/info/exclude, qui ne se clone pas)
+.impeccable/hook.cache.json
+.impeccable/config.local.json
