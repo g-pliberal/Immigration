@@ -2,7 +2,9 @@
 
 from __future__ import annotations
 
+from .. import chiffrage as c
 from .. import gabarit as g
+from .chiffrage import fourchette, milliers
 
 PAGE = {
     "fichier": "sources.html",
@@ -124,13 +126,12 @@ SOURCES = [
          "Cour des comptes — « La politique de lutte contre l'immigration "
          "irrégulière », janvier 2024",
          "Environ 1,8 milliard d'euros par an, près de 16 000 agents, des "
-         "résultats jugés inefficaces, et les coûts unitaires : plus de "
-         "4 500 € par éloignement forcé, environ 16 000 € par personne "
-         "retenue."),
+         "résultats jugés inefficaces, et les coûts unitaires : 4 414 € par "
+         "éloignement forcé, 602 € par journée de rétention."),
         ("https://www.senat.fr/rap/l25-139-315/l25-139-3152.html",
          "Sénat — mission « Immigration, asile et intégration », PLF 2026",
-         "Les crédits de la mission (2,16 Md€), ceux de l'allocation pour "
-         "demandeur d'asile (299 M€), et les prévisions de bénéficiaires."),
+         "Les crédits de la mission dans le projet de loi, et les prévisions "
+         "de bénéficiaires de l'allocation pour demandeur d'asile."),
         ("https://www.conseil-etat.fr/publications-colloques/etudes-et-rapports",
          "Conseil d'État — rapport public sur l'activité juridictionnelle",
          "Le poids du contentieux des étrangers : près de la moitié des "
@@ -145,6 +146,89 @@ SOURCES = [
          "Les rapports sur la dématérialisation des services publics et "
          "l'accès aux guichets des préfectures — y compris quand ils "
          "contredisent ce que ce site proposait."),
+    ]),
+    ("Le chiffrage du programme", [
+        ("https://www.assemblee-nationale.fr/dyn/contenu/visualisation/"
+         "1087981/file/PAP2026_BG_Immigration_asile_integration_IA.pdf",
+         "Projet annuel de performances 2026 — « Immigration, asile et "
+         "intégration »",
+         "L'allocation des seuls demandeurs d'asile (222,2 M€), les places "
+         "d'hébergement et leur coût journalier, et l'indicateur du délai "
+         "global d'une demande d'asile : 299 jours en 2024."),
+        ("https://www.assemblee-nationale.fr/dyn/17/textes/"
+         "l17t0227_texte-adopte-seance.pdf",
+         "Loi n° 2026-103 du 19 février 2026 de finances pour 2026",
+         "Les crédits votés de la mission (2,13 Md€, état B) et les nouveaux "
+         "tarifs des titres de séjour (art. 128)."),
+        ("https://www.assemblee-nationale.fr/dyn/dyn/contenu/visualisation/"
+         "1087921/file/PLF%202026_Evaluations%20pr%C3%A9alables_Vdef.pdf",
+         "Évaluations préalables du projet de loi de finances pour 2026, "
+         "article 30",
+         "Les effectifs des services des étrangers des préfectures (4 173 "
+         "équivalents temps plein en 2024), leur masse salariale, et le coût "
+         "d'une première délivrance de titre évalué par l'État : 547 €."),
+        ("https://www.senat.fr/rap/l25-139-21/l25-139-21_mono.html",
+         "Sénat — rapport général sur le projet de loi de finances pour 2026, "
+         "article 30",
+         "Le produit des taxes sur les titres de séjour — de l'ordre de "
+         "200 M€ par an —, et l'évolution du coût d'un titre depuis 2011."),
+        ("https://www.service-public.gouv.fr/particuliers/actualites/A18881",
+         "service-public.fr — les tarifs des titres de séjour au 1er mai 2026",
+         "350 € pour une première délivrance, 250 € pour un renouvellement, "
+         "300 € de droit de visa de régularisation."),
+        ("https://www.assemblee-nationale.fr/dyn/contenu/visualisation/"
+         "1097914/file/EAT%20-%20PPL%201799%20Renouvellement%20automatique"
+         "%20des%20titres%20de%20s%C3%A9jour.pdf",
+         "Assemblée nationale — rapport sur la proposition de loi n° 1799 "
+         "(renouvellement automatique des titres)",
+         "Les renouvellements de 2024 par motif : c'est lui qui montre que le "
+         "titre de quatre ans ne concerne que 338 470 renouvellements de "
+         "travail et d'études."),
+        ("https://www.ofpra.gouv.fr/sites/default/files/2026-07/"
+         "Rapport%20d%27activit%C3%A9%202025%20Ofpra.pdf",
+         "OFPRA — rapport d'activité 2025",
+         "156 509 décisions, 163 jours d'instruction en moyenne, 109,5 M€ de "
+         "dépenses."),
+        ("https://www.cnda.fr/Media/mediatheque-cnda/documents/"
+         "rapports-d-activite/rapport-d-activite-2025",
+         "Cour nationale du droit d'asile — rapport d'activité 2025",
+         "53 086 décisions pour 60 065 recours, et un délai moyen de cinq "
+         "mois et demi."),
+        ("https://www.conseil-etat.fr/content/download/239412/document/"
+         "CE_RA_2025_PDFweb_Access_0926.pdf",
+         "Conseil d'État — rapport public 2026, activité juridictionnelle de "
+         "2025",
+         "154 391 affaires d'étrangers devant les tribunaux administratifs, "
+         "46 % des entrées, une hausse portée par les procédures "
+         "d'éloignement."),
+        ("https://www.senat.fr/rap/r25-004/r25-004_mono.html",
+         "Sénat — rapport d'information n° 4 (2025-2026) sur la rétention",
+         "34,5 jours de rétention en moyenne en 2024, et 38,8 % seulement des "
+         "placements qui aboutissent à un éloignement en métropole."),
+        ("https://www.strategie-plan.gouv.fr/files/files/Publications/2025/"
+         "2025-12-12%20-%20Rapport%20SMIC/"
+         "SMIC-RAPPORT-2025-11decembre13h30-complet-2.pdf",
+         "Groupe d'experts sur le SMIC — rapport 2025",
+         "Le coût d'un salarié au SMIC pour son employeur, et ce qui en "
+         "revient au salarié : ce qu'une régularisation fait entrer en "
+         "cotisations."),
+        ("https://www.senat.fr/rap/r23-772/r23-772_mono.html",
+         "Sénat — rapport d'information n° 772 (2023-2024) sur la formation "
+         "linguistique",
+         "Ce que coûtent les cours de français du contrat d'intégration "
+         "républicaine, et ce qu'ils produisent."),
+        ("https://doi.org/10.1086/730122",
+         "J. Elias, J. Monras et J. Vázquez-Grenno, « Understanding the "
+         "Effects of Granting Work Permits to Undocumented Immigrants » (2025)",
+         "La régularisation espagnole de 2005 : environ 4 000 € de "
+         "cotisations de plus par personne régularisée et par an. C'est la "
+         "borne haute de notre hypothèse, pas notre hypothèse."),
+        ("https://doi.org/10.1126/sciadv.aap9519",
+         "M. Marbach, J. Hainmueller et D. Hangartner, « The long-term impact "
+         "of employment bans on the economic integration of refugees » (2018)",
+         "Sept mois d'interdiction de travailler de plus : vingt points "
+         "d'emploi de moins cinq ans après, chez les réfugiés arrivés en "
+         "Allemagne. Le gain que ce chiffrage ne compte presque pas."),
     ]),
     ("La recherche économique", [
         ("https://www.oecd.org/fr/migrations/",
@@ -206,7 +290,8 @@ def construire() -> str:
         "ne peuvent pas diverger des fiches, et une clé inconnue fait échouer "
         "la construction du site. Quand un chiffre est repris dans une phrase, "
         "pour qu'elle se lise, il est suivi du petit lien qui mène à sa "
-        "fiche. Les vingt-sept fiches, avec leur source, leur millésime et ce "
+        f"fiche. Les {g.fiches_du_registre()} fiches, avec leur source, leur "
+        "millésime et ce "
         "que le chiffre ne dit pas, sont dans "
         "<a href=\"chiffres.html\">Tous les chiffres</a>.</p>",
         "resume")
@@ -301,8 +386,8 @@ peut-être encore.</p>
          ["« Le coût net est probablement négatif »",
           "Aucun euro avancé, dans un site dont la méthode affichée exige une "
           "source par chiffre",
-          "Un chiffrage poste par poste, et l'aveu que le solde est négatif "
-          "les deux premières années"],
+          "Un chiffrage calculé, en deux scénarios, et l'aveu qu'il coûte "
+          "d'abord — voir le tableau suivant"],
          ["Card (1990) cité seul ; « billets de mille »",
           "L'étude la plus contestée de la discipline, et une traduction qui "
           "divise le titre de Clemens par un milliard",
@@ -313,6 +398,85 @@ peut-être encore.</p>
                 "après un licenciement, la preuve du travail, la soupape "
                 "d'ordre public — sont des ajouts plutôt que des "
                 "rectifications.",
+        classes_colonnes=["long", "long", "long"])
+
+    # Ce que le chiffrage a corrigé. Les montants sont pris au module de
+    # calcul, comme sur la page du chiffrage : une correction qui citerait un
+    # chiffre différent de celui qu'elle corrige serait une faute de plus.
+    def postes(*cles: str) -> list:
+        return [p for p in c.POSTES if p.cle in cles]
+
+    evites = sorted(
+        round(c._renouvellements_evites(c.scenario(nom, 5).__getitem__, 5), -4)
+        for nom in ("prudent", "favorable"))
+    corps += """
+<h3 id="corrections-chiffrage">Ce que le chiffrage a corrigé</h3>
+<p>Calculer le chiffrage au lieu de l'écrire a fait apparaître des fautes que
+le tableau de phrases laissait passer. Les voici, avec le chiffre qui les
+remplace — tiré du même calcul que la <a href="chiffrage.html">page du
+chiffrage</a>.</p>
+"""
+    corps += g.tableau(
+        ["Ce que le site disait", "Pourquoi c'était faux ou fragile",
+         "Ce qu'il dit maintenant"],
+        [["« 600 000 à 700 000 dossiers de moins » grâce au titre de quatre "
+          "ans",
+          "Le titre de quatre ans ne vise que les titres de travail et "
+          "d'études : 338 470 renouvellements en 2024, pas 955 080",
+          f"{milliers(evites[0])} à {milliers(evites[1])} renouvellements "
+          "de moins par an"],
+         ["Rien sur la gratuité des renouvellements",
+          "C'est une recette que l'État perçoit aujourd'hui, et que "
+          "l'engagement 6 supprime",
+          "Comptée : " + fourchette(*c.fourchette(postes(
+              "gratuite-renouvellements", "renouvellements-taxes"), 5),
+              absolu=True)
+          + " de recette perdue par an, le plus gros moins durable du "
+          "programme"],
+         ["« Instruire en six mois au lieu de dix-huit » ; « dix-huit mois » "
+          "d'attente",
+          "Vrai en 2021. L'indicateur officiel donne 299 jours en 2024",
+          "Près de dix mois, partout sur le site, et des économies "
+          "recalculées sur cette base"],
+         ["« 0,3 à 0,6 Md€ » d'économies sur l'asile",
+          "Comptées sans ce que coûtent les personnes protégées plus tôt — le "
+          "RSA plus tôt — ni les déboutées plus tôt — l'aide médicale plus "
+          "tôt",
+          "Les plus et les moins de l'asile calculés ensemble : "
+          + fourchette(*c.fourchette(postes(
+              "ada-attente", "hebergement-attente", "proteges-plus-tot",
+              "deboutes-plus-tot", "renfort-ofpra-cnda"), 5))
+          + " par an, éloignements non compris"],
+         ["Éloignements : « plus de 4 500 € » l'unité, « 40 à 150 M€ » en "
+          "tout",
+          "La Cour des comptes écrit 4 414 €, hors rétention ; or un "
+          "éloignement demande en moyenne plus d'un placement en rétention, "
+          "à environ 20 800 € le placement",
+          fourchette(*c.fourchette(postes("eloignements"), 5))
+          + " par an pour 4 000 éloignements forcés de plus, et le prix de "
+          "chaque millier au-delà"],
+         ["L'allocation des demandeurs d'asile à 299 M€, la mission à "
+          "2,16 Md€",
+          "Le premier chiffre comprend les Ukrainiens sous protection "
+          "temporaire, qui ont le droit de travailler ; le second est celui "
+          "du projet de loi, pas de la loi votée",
+          "222 M€ et 2,13 Md€"],
+         ["Le contentieux des étrangers, « ≈ 50 % » des tribunaux "
+          "administratifs",
+          "43 % en 2024",
+          "46 % en 2025, dernier chiffre publié"],
+         ["La gratuité des renouvellements « immédiate, par décret »",
+          "Le montant des taxes est écrit dans la loi (CESEDA, "
+          "art. L. 436-1)",
+          "Rangée dans la loi de finances de la première année"],
+         ["« Le solde est négatif les deux premières années, et probablement "
+          "positif ensuite »",
+          "Aucun calcul ne l'établissait",
+          "Négatif sur tout l'horizon dans le scénario prudent ; nettement "
+          "positif à terme dans le scénario favorable ; entre les deux, une "
+          "hypothèse que personne ne mesure — la part de travail au noir"]],
+        legende="Les corrections apportées par le chiffrage, en septembre "
+                "2026.",
         classes_colonnes=["long", "long", "long"])
 
     corps += """

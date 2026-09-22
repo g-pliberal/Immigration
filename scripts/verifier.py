@@ -4,7 +4,7 @@
     python scripts/verifier.py
 
 Ce n'est pas un validateur HTML, et cela ne remplace pas une relecture. Cela
-attrape les trois fautes qu'on commet vraiment en écrivant un site de huit
+attrape les trois fautes qu'on commet vraiment en écrivant un site de quelques
 pages à la main : une page régénérée qu'on a oublié de commiter, un lien
 interne vers un fichier ou une ancre qui n'existe pas, et une ressource
 — feuille, script, police, image — appelée mais absente du dépôt.

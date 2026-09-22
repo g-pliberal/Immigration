@@ -196,16 +196,19 @@ européen a resserrés.</p>
          ["Instruction OFPRA", "de l'ordre de 4 à 6 mois",
           "Droit de travailler ouvert seulement au-delà de six mois, et sur "
           "autorisation"],
-         ["Recours devant la CNDA", "de l'ordre de 6 à 12 mois",
+         ["Recours devant la CNDA", "de l'ordre de 5 à 7 mois",
           "Maintien du droit au séjour pendant l'instance, en procédure "
           "normale"],
-         ["Total, recours compris", "souvent plus de 18 mois",
+         ["Total, recours compris", "près de dix mois en moyenne"
+          + g.renvoi("delai-asile"),
           "Une vie entière suspendue à une décision, et des compétences qui "
           "rouillent"]],
         legende="Ordres de grandeur des délais d'asile (rapports d'activité "
-                "OFPRA et CNDA, Cour des comptes). Les délais varient "
-                "fortement selon la procédure — accélérée, normale, "
-                "frontière.",
+                "2025 de l'OFPRA et de la CNDA, indicateur de délai global du "
+                "budget de l'État). Les délais varient fortement selon la "
+                "procédure — accélérée, normale, frontière. Ce tableau "
+                "écrivait « souvent plus de 18 mois » : c'était vrai en 2021, "
+                "plus aujourd'hui.",
         classes_colonnes=["long", "texte", "long"])
 
     corps += g.note(
@@ -215,7 +218,7 @@ européen a resserrés.</p>
         "afghanes et ukrainiennes a fait basculer la majorité. "
         + g.renvoi("asile-protection") +
         " Autrement dit, <strong class=\"cle-texte\">c'est maintenant plus "
-        "d'un demandeur sur deux qui attend dix-huit mois une protection à "
+        "d'un demandeur sur deux qui attend près de dix mois une protection à "
         "laquelle il avait droit dès le premier jour</strong>. L'argument "
         "« ils attendent pour rien » était le nôtre il y a deux ans ; il est "
         "faux aujourd'hui, et l'argument de la lenteur en sort renforcé, pas "
@@ -248,16 +251,18 @@ ne protège personne.</p>
     corps += g.cle(
         "Pourquoi les tribunaux administratifs sont-ils saturés ?",
         "Parce que le contentieux des étrangers représente désormais "
-        "<strong>près de la moitié des requêtes nouvelles devant les tribunaux "
-        "administratifs</strong>, en hausse de 9 % en un an, et environ autant "
-        "en appel.",
+        "<strong>46 % des requêtes nouvelles devant les tribunaux "
+        "administratifs</strong>, en hausse de 28 % en un an, et plus de la "
+        "moitié en appel.",
         corps="<p>Il faut dire précisément de quoi cette masse est faite, "
               "parce que la version courte qu'on lit partout — « c'est du "
               "contentieux de procédure » — est fausse et se retourne en une "
               "phrase. L'essentiel des recours vise des refus de séjour et des "
               "OQTF : ce sont des contentieux <strong>au fond</strong>, qui "
               "subsisteraient en grande partie après notre réforme, et qui "
-              "augmenteraient même si l'on éloigne davantage.</p>"
+              "augmenteraient même si l'on éloigne davantage : la hausse de "
+              "2025 est portée, selon le Conseil d'État, par les procédures "
+              "d'éloignement.</p>"
               "<p>Ce que la réforme supprime est une autre part, réelle et "
               "documentée : les référés pour obtenir un rendez-vous, les "
               "recours contre des refus implicites nés du silence, les "
@@ -265,8 +270,8 @@ ne protège personne.</p>
               "renouvellement tardif. C'est un gain sérieux, et il ne vaut "
               "pas la moitié du rôle des tribunaux. Nous préférons le chiffrer "
               "bas et le tenir.</p>",
-        source="Conseil d'État, rapport public 2025 sur l'activité "
-               "juridictionnelle." + g.renvoi("contentieux-ta"),
+        source="Conseil d'État, rapport public 2026 sur l'activité "
+               "juridictionnelle de 2025." + g.renvoi("contentieux-ta"),
         identifiant="contentieux")
 
     corps += """
@@ -358,10 +363,10 @@ le 10 juin 2026.</p>
 
     corps += """
 <h2 id="cout">Ce que cela coûte, et ce que cela rapporte</h2>
-<p>La mission budgétaire « Immigration, asile et intégration » pèse 2,16
-milliards d'euros en 2026, dont 299 millions pour la seule allocation versée
-aux demandeurs d'asile — c'est-à-dire au financement de l'attente de personnes
-à qui l'on interdit par ailleurs de travailler. À côté, la Cour des comptes
+<p>La mission budgétaire « Immigration, asile et intégration » pèse 2,13
+milliards d'euros en 2026, dont 222 millions pour l'allocation des seuls
+demandeurs d'asile — c'est-à-dire au financement de l'attente de personnes à
+qui l'on interdit par ailleurs de travailler. À côté, la Cour des comptes
 chiffre à environ 1,8 milliard le coût direct annuel de la politique de lutte
 contre l'immigration irrégulière, pour des résultats qu'elle juge
 « inefficaces ». L'aide médicale de l'État couvre de l'ordre de 480 000
@@ -390,7 +395,10 @@ travaille contribue ; un immigré qu'on empêche de travailler coûte.</p>
         "pas une fatalité culturelle : c'est, pour une part qu'on peut "
         "mesurer, le produit d'années passées sans droit de travailler, avec "
         "un titre attaché à un employeur, et un diplôme étranger jamais "
-        "reconnu.</p>")
+        "reconnu.</p>"
+        "<p>Ce que le programme change à ces montants — en plus comme en "
+        "moins — est calculé poste par poste, année par année, dans "
+        "<a href=\"chiffrage.html\">le chiffrage</a>.</p>")
 
     corps += """
 <div class="actions">

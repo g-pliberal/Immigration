@@ -1862,7 +1862,11 @@ ul.serree li { margin: 0.35rem 0; }
    à sa fiche dans `chiffres.html`. Il doit se voir sans casser la ligne — un
    lecteur qui ne le cherche pas ne doit pas buter dessus, un lecteur qui
    conteste le chiffre doit le trouver du premier coup d'œil. */
+/* `position: relative` : le texte pour synthèse vocale qu'il porte est
+   positionné en absolu, et sans cela il s'échappait du tableau défilant qui le
+   contient et élargissait la page de quelques pixels sur téléphone. */
 .renvoi {
+  position: relative;
   font-size: 0.7em; font-weight: 700; font-variant-numeric: tabular-nums;
   vertical-align: 0.4em; margin-left: 0.15em; padding: 0 0.25em;
   text-decoration: none; border-bottom: none;
@@ -1944,4 +1948,73 @@ ul.serree li { margin: 0.35rem 0; }
   background-color: var(--retroactif-employeur);
   background-image: repeating-linear-gradient(135deg,
     rgba(11, 61, 58, 0.55) 0 4px, transparent 4px 8px);
+}
+
+/* ==========================================================================
+   LE CHIFFRAGE : LES PLUS ET LES MOINS
+   --------------------------------------------------------------------------
+   Un montant se lit d'abord à son SIGNE, écrit en toutes lettres : « + » pour
+   ce que les finances publiques gagnent, « − » pour ce qu'elles perdent. La
+   pastille qui le précède redit ce signe à l'œil, dans les deux couleurs que
+   la charte réserve déjà à l'écart — le vert de ce qui reste, le rose de ce
+   qui manque. Elle ne le dit jamais seule : le signe est dans le texte, et
+   c'est lui que lit une synthèse vocale ou une impression en noir et blanc.
+   ========================================================================== */
+.montant { white-space: nowrap; font-variant-numeric: tabular-nums; }
+.montant::before {
+  content: ""; display: inline-block; width: 0.6rem; height: 0.6rem;
+  margin-right: 0.4rem; vertical-align: 0.05em; background: var(--texte-tres-doux);
+}
+/* Dans les chiffres d'ouverture, une fourchette est deux nombres : elle passe
+   à la ligne à « à » plutôt que de déborder sur la fiche voisine, et perd sa
+   pastille — le signe, écrit en or et en grand, se suffit. */
+.fiches.reperes .fiche .valeur:has(.montant) { font-size: clamp(1.5rem, 3vw, 2.1rem); }
+.fiches.reperes .montant { white-space: normal; }
+.fiches.reperes .montant::before { display: none; }
+.montant.plus::before { background: var(--reste); }
+.montant.moins::before { background: var(--manque); }
+/* Une fourchette qui passe par zéro n'est ni un gain ni une perte : elle dit
+   qu'on ne sait pas le signe, et sa pastille porte les deux couleurs. */
+.montant.incertain::before {
+  background: linear-gradient(90deg, var(--manque) 50%, var(--reste) 50%);
+}
+/* Le total d'un tableau : séparé des lignes qu'il additionne par le filet or
+   de l'en-tête, pour qu'on ne le lise pas comme une ligne de plus. */
+tfoot th, tfoot td {
+  border-top: 2px solid var(--or); border-bottom: none; font-weight: 700;
+}
+tfoot tr + tr :is(th, td) { border-top: 1px solid var(--trait); }
+tfoot th .dont { font-weight: 400; color: var(--texte-doux); padding-left: 1.2rem;
+                 display: inline-block; }
+/* Les fourchettes de l'année 5, engagement par engagement : une barre du
+   scénario prudent au scénario favorable. La part à gauche de zéro est peinte
+   dans la couleur de ce qui manque, la part à droite dans celle de ce qui
+   reste ; le montant, écrit en toutes lettres au bout de la barre, porte le
+   signe — la couleur ne le dit jamais seule. Comme la cascade de la charte,
+   la figure défile sur un téléphone au lieu de rétrécir. */
+.fourchettes { margin: 1.5rem 0 1.75rem; }
+.fourchettes .defilant { padding-bottom: 0.5rem; }
+.fourchettes svg { display: block; width: 100%; height: auto; }
+.fourchettes .grille { stroke: var(--trait); stroke-width: 1; }
+.fourchettes .axe { stroke: var(--trait-champ); stroke-width: 1.5; }
+.fourchettes .barre-moins { fill: var(--manque); }
+.fourchettes .barre-plus { fill: var(--reste); }
+.fourchettes .barre-nulle { fill: var(--texte-tres-doux); }
+.fourchettes .graduation {
+  fill: var(--texte-tres-doux); font-family: inherit; font-size: 12px;
+  font-weight: 600; font-variant-numeric: tabular-nums;
+}
+.fourchettes .etiquette { fill: var(--texte-doux); font-family: inherit; font-size: 13px; }
+.fourchettes .etiquette.total { fill: var(--texte); font-weight: 700; }
+.fourchettes .valeur {
+  fill: var(--texte); font-family: inherit; font-size: 13px; font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  paint-order: stroke; stroke: var(--fond); stroke-width: 4px; stroke-linejoin: round;
+}
+.fourchettes figcaption { margin-top: 0.25rem; }
+@media (max-width: 34rem) {
+  .fourchettes svg { min-width: 40rem; }
+}
+@media print {
+  .fourchettes .barre-moins, .fourchettes .barre-plus { stroke: #000; stroke-width: 0.5; }
 }

@@ -17,8 +17,10 @@ soi-même. Trois changements portent l'essentiel :
 
 from __future__ import annotations
 
+from .. import chiffrage as c
 from .. import gabarit as g
 from .accueil import ENGAGEMENTS
+from .chiffrage import constats, fourchette
 
 PAGE = {
     "fichier": "programme.html",
@@ -409,6 +411,19 @@ contre des refus et des OQTF, qui subsisteront.
     corps += g.renvoi("contentieux-ta")
     corps += "</p>"
 
+    gratuite = [p for p in c.POSTES if p.cle == "gratuite-renouvellements"]
+    corps += (
+        "<p><strong>La gratuité a un prix, et il est compté.</strong> Les "
+        "renouvellements rapportent aujourd'hui l'essentiel des taxes sur les "
+        "titres de séjour — de l'ordre de 200 M€ par an en tout"
+        + g.renvoi("taxes-titres") + ", à 250 € le renouvellement depuis le "
+        "1er mai 2026. Les rendre gratuits coûte "
+        + fourchette(*c.fourchette(gratuite, 5), absolu=True)
+        + " par an : c'est le plus "
+        "gros moins durable du programme. Nous le maintenons, parce qu'un "
+        "titre qu'il faut payer chaque fois pour garder le droit de "
+        "travailler est un impôt sur l'emploi déclaré.</p>")
+
     # ----------------------------------------------------------------- 7
     corps += """
 <h2 id="sept">7. Rendre des comptes : ce qui nous donnerait tort</h2>
@@ -457,8 +472,8 @@ de conditions, qui reste contestable devant un juge.</p>
 <h2 id="controle">Ce qu'on contrôle vraiment, et mieux</h2>
 <p>Ouvrir le travail n'est pas renoncer au contrôle : c'est le concentrer là
 où il protège quelqu'un. Une administration qui cesse d'instruire des
-autorisations de travail et six cent mille renouvellements annuels peut enfin
-faire ce qu'elle seule doit faire.</p>
+autorisations de travail et près de deux cent mille renouvellements par an
+peut enfin faire ce qu'elle seule doit faire.</p>
 """
 
     corps += g.points([
@@ -473,8 +488,12 @@ faire ce qu'elle seule doit faire.</p>
         ("Éloignement effectif",
          "Moins de décisions, mieux exécutées : les moyens vont aux étrangers "
          "condamnés et aux menaces avérées. C'est une dépense, pas une "
-         "économie — plus de 4 500 € par éloignement forcé, hors rétention — "
-         "et notre chiffrage l'inscrit." + g.renvoi("cout-eloignement")),
+         "économie — 4 414 € par éloignement forcé hors rétention"
+         + g.renvoi("cout-eloignement") + ", et un peu plus d'un placement "
+         "en rétention par éloignement, à environ 20 800 € le placement"
+         + g.renvoi("retention") + " — et notre "
+         "<a href=\"chiffrage.html#engagement-4\">chiffrage</a> "
+         "l'inscrit."),
         ("Travail dissimulé",
          "Contrôles renforcés chez les employeurs : quand le travail légal "
          "devient simple, employer au noir n'a plus d'excuse et le sanctionner "
@@ -552,10 +571,15 @@ plutôt que de laisser un contradicteur le remplir à notre place.</p>
         ["Échéance", "Ce qui entre en vigueur", "Norme concernée"],
         [["Immédiat, par décret",
           "Délais opposables et silence valant accord ; rendez-vous garanti "
-          "sous quinze jours ; guichet physique de substitution ; gratuité "
-          "des renouvellements",
+          "sous quinze jours ; guichet physique de substitution",
           "Réglementaire. Compatible avec la directive 2011/98, qui impose "
           "déjà quatre mois"],
+         ["Loi de finances, première année",
+          "Gratuité des renouvellements ; taxe de première délivrance "
+          "alignée sur le coût du traitement",
+          "Loi de finances : les montants des taxes sont écrits dans la loi "
+          "(CESEDA, art. L. 436-1). Ce site les rangeait par erreur parmi les "
+          "mesures réglementaires"],
          ["Loi, première année",
           "Suppression de l'autorisation de travail et de l'opposabilité de "
           "la situation de l'emploi ; titre pluriannuel de quatre ans ; "
@@ -582,96 +606,76 @@ plutôt que de laisser un contradicteur le remplir à notre place.</p>
         classes_colonnes=["texte", "long", "long"])
 
     # --------------------------------------------------------- chiffrage
+    # Ce tableau n'écrit aucun montant : il les demande au module de calcul,
+    # comme la page du chiffrage. Les deux ne peuvent pas diverger, et les
+    # phrases qui en tirent une conclusion sont vérifiées par ``constats``.
+    k = constats()
+    s1, s5 = k["soldes"][1], k["soldes"][5]
     corps += """
 <h2 id="chiffrage">Chiffrage : ce que cela coûte, ce que cela rapporte</h2>
-<p>Ce programme affirmait que « le coût net est probablement négatif » sans
-avancer un seul euro — dans un site dont la méthode affichée est « un chiffre,
-une source, un millésime ». L'incohérence était la plus visible de toutes.
-Voici donc un chiffrage, avec ses hypothèses, ses fourchettes et ce qu'il ne
-sait pas faire.</p>
+<p>Ce programme affirmait d'abord que « le coût net est probablement
+négatif », sans avancer un euro ; il a ensuite aligné des phrases dans un
+tableau. Le chiffrage est maintenant <strong>calculé</strong> : chaque plus et
+chaque moins, engagement par engagement, comparé à la situation actuelle, dans
+deux scénarios, à partir d'hypothèses écrites une à une. Il a
+<a href="chiffrage.html">sa page</a> ; en voici le résultat.</p>
 """
-
+    lignes = []
+    for cle, titre in c.ENGAGEMENTS.items():
+        postes = c.postes_de_l_engagement(cle)
+        intitule = f"{cle}. {titre}" if cle.isdigit() else titre
+        lignes.append([
+            f'<a href="chiffrage.html#engagement-{cle}">{g.escape(intitule)}</a>',
+            fourchette(*c.fourchette(postes, 1)),
+            fourchette(*c.fourchette(postes, 5))])
     corps += g.tableau(
-        ["Poste", "Sens", "Ordre de grandeur annuel", "Hypothèse retenue"],
-        [["Allocation et hébergement des demandeurs d'asile",
-          "Économie",
-          "<strong>0,3 à 0,6 Md€</strong>",
-          "L'allocation pèse 299 M€ et l'hébergement l'essentiel du reste de "
-          "la mission de 2,16 Md€. Instruire en six mois au lieu de dix-huit "
-          "réduit la durée moyenne indemnisée d'environ deux tiers ; le droit "
-          "de travailler dès le dépôt en sort une partie du dispositif"
-          + g.renvoi("ada-credits")],
-         ["Instruction des renouvellements",
-          "Économie",
-          "<strong>600 000 à 700 000 dossiers de moins</strong>",
-          "Conséquence arithmétique du titre de quatre ans appliqué aux "
-          "955 080 renouvellements annuels. Nous donnons le volume et non un "
-          "montant : le coût unitaire d'instruction n'est pas publié"
-          + g.renvoi("renouvellements")],
-         ["Autorisations de travail supprimées",
-          "Économie",
-          "Non chiffrable publiquement",
-          "L'acte disparaît, mais aucune publication ne donne son coût "
-          "d'instruction. Nous préférons l'écrire que d'inventer un chiffre"],
-         ["Contentieux de procédure évité",
-          "Économie",
-          "Part minoritaire du contentieux des étrangers",
-          "Référés rendez-vous, refus implicites, ruptures de droits. Nous ne "
-          "revendiquons pas les 50 % du rôle des tribunaux : l'essentiel est "
-          "du contentieux au fond, qui subsiste"],
-         ["Cotisations sur du travail aujourd'hui dissimulé",
-          "Recette",
-          "Non chiffrable honnêtement",
-          "Aucune statistique ne dénombre la population concernée. Tout "
-          "chiffre avancé ici serait une extrapolation déguisée"],
-         ["Officiers de protection et magistrats",
-          "<strong>Dépense</strong>",
-          "Dépense immédiate et durable",
-          "C'est le prix de l'engagement 4. Il précède les économies qu'il "
-          "produit"],
-         ["Éloignements effectifs supplémentaires",
-          "<strong>Dépense</strong>",
-          "<strong>40 à 150 M€</strong>",
-          "Plus de 4 500 € par éloignement forcé, et environ 16 000 € par "
-          "personne retenue pour vingt-sept jours. Promettre plus "
-          "d'éloignements, c'est promettre une dépense"
-          + g.renvoi("cout-eloignement")],
-         ["Indemnisation des délais dépassés",
-          "<strong>Dépense</strong>",
-          "Décroissante par construction",
-          "Élevée la première année, nulle si l'engagement 2 est tenu. C'est "
-          "le but : une dépense qui mesure notre propre échec"],
-         ["Guichets physiques de substitution",
-          "<strong>Dépense</strong>",
-          "Modérée",
-          "Compensée par la chute du volume de dossiers, mais réelle : un "
-          "guichet garanti se paie"]],
-        legende="Chiffrage par poste. Les fourchettes sont larges parce que "
-                "les incertitudes le sont ; un chiffre unique serait plus "
-                "convaincant et moins vrai.",
-        classes_colonnes=["texte", "texte", "nombre", "long"])
+        ["Engagement", "Année 1", "Année 5"], lignes,
+        legende="Ce que chaque engagement coûte (−) ou rapporte (+) aux "
+                "finances publiques chaque année, du scénario prudent au "
+                "scénario favorable. Le détail, poste par poste, est dans "
+                "<a href=\"chiffrage.html\">le chiffrage</a>.",
+        classes_colonnes=["texte", "nombre", "nombre"],
+        pied=[["Solde du programme", fourchette(*s1), fourchette(*s5)]])
 
+    taxes = c.fourchette([p for p in c.POSTES if p.cle in (
+        "gratuite-renouvellements", "renouvellements-taxes")], 5)
+    eloignements = c.fourchette(
+        [p for p in c.POSTES if p.cle == "eloignements"], 5)
     corps += g.cle(
         "Le point faible de ce chiffrage, et il faut le connaître",
-        "<strong>Les dépenses sont immédiates, les économies sont "
-        "différées.</strong> Recruter des magistrats coûte la première année ; "
-        "le titre de quatre ans ne vide les files qu'à partir de la deuxième ; "
-        "l'effet sur l'emploi et les cotisations se mesure sur une cohorte, "
-        "donc sur plusieurs années.",
-        corps="<p>Notre conclusion est donc plus prudente que la précédente : "
-              "le solde est <strong>négatif les deux premières années</strong> "
-              "— l'État dépense plus qu'il n'économise — et probablement "
-              "positif ensuite. Dire « le coût net est négatif » sans "
-              "préciser l'horizon était une facilité, et un adversaire "
-              "attentif l'aurait relevée avant nous.</p>"
-              "<p>Une réforme qui coûte deux ans avant de rapporter est "
-              "défendable. Une réforme dont on cache qu'elle coûte deux ans "
-              "ne l'est pas longtemps.</p>",
+        "<strong>Le programme coûte d'abord</strong> — de " + fourchette(*s1)
+        + " la première année — et <strong>son solde à terme dépend d'une "
+        "hypothèse que personne ne mesure</strong> : la part de travail au "
+        "noir parmi les personnes qu'il régularise.",
+        corps="<p>Notre conclusion est plus prudente que les deux "
+              "précédentes. Dans le scénario prudent, le solde reste négatif "
+              "sur tout l'horizon ; dans le scénario favorable, il atteint "
+              + fourchette(s5[1], s5[1]) + " par an la cinquième année. "
+              "Entre les deux, une question : les personnes régularisées "
+              "travaillaient-elles au noir, ou déjà sous une autre identité ? "
+              "Dans le premier cas, leur régularisation rapporte ; dans le "
+              "second, elle coûte un peu. Dire « le coût net est négatif » "
+              "était une facilité ; dire « le programme se finance tout seul » "
+              "en serait une autre.</p>"
+              "<p>Deux moins, surtout, que les versions précédentes ne "
+              "comptaient pas, ou comptaient mal : la gratuité des "
+              "renouvellements, une recette de "
+              + fourchette(*taxes, absolu=True)
+              + " par an que l'État perçoit aujourd'hui ; et l'exécution "
+              "effective des rejets, qui coûte "
+              + fourchette(*eloignements, absolu=True) + " par an, parce "
+              "qu'un éloignement forcé passe le plus souvent par la "
+              "rétention.</p>"
+              "<p>Une réforme qui coûte avant de rapporter — et qui ne "
+              "rapportera que si elle fait vraiment passer du travail au noir "
+              "au travail déclaré — est défendable. Une réforme dont on cache "
+              "qu'elle coûte ne l'est pas longtemps.</p>",
         identifiant="decalage")
 
     corps += """
 <div class="actions">
-  <a class="bouton" href="parcours.html">Voir ce que ça change, cas par cas</a>
+  <a class="bouton" href="chiffrage.html">Le chiffrage, poste par poste</a>
+  <a href="parcours.html">Ce que ça change, cas par cas</a>
   <a href="objections.html">Les onze objections</a>
 </div>
 """

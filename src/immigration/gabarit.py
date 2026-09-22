@@ -1,9 +1,9 @@
-"""Le gabarit du site : ce qui est commun aux huit pages.
+"""Le gabarit du site : ce qui est commun à toutes les pages.
 
 Le site est fait de fichiers HTML statiques, écrits par ``scripts/construire.py``
 à partir des modules de ``src/immigration/pages/``. Pourquoi un générateur
-plutôt que huit fichiers tenus à la main : le bandeau, le pied de page, la
-navigation et les avertissements de méthode sont les mêmes partout, et huit
+plutôt que des fichiers tenus à la main : le bandeau, le pied de page, la
+navigation et les avertissements de méthode sont les mêmes partout, et neuf
 copies d'un même bandeau divergent dès la première correction. La même raison
 vaut pour les chiffres, qui vivent dans ``chiffres.py`` et que ce module sait
 poser dans une page (voir ``nombre`` et ``renvoi``).
@@ -44,6 +44,7 @@ GROUPES_NAVIGATION: tuple[tuple[str, tuple[tuple[str, str], ...]], ...] = (
     )),
     ("La proposition", (
         ("programme.html", "Le programme"),
+        ("chiffrage.html", "Chiffrage"),
         ("parcours.html", "Parcours comparés"),
     )),
     ("Pour aller plus loin", (
@@ -113,7 +114,7 @@ def entete(page_active: str) -> str:
 
     Le nom du site n'est pas un ``<h1>`` : chaque page porte son propre titre,
     énorme, et c'est lui le ``<h1>``. « Immigration » est le nom du site,
-    répété à l'identique sur huit pages.
+    répété à l'identique sur chaque page.
     """
     return f"""<a class="evitement" href="#contenu">Aller au contenu</a>
 <header class="bandeau"><div class="interieur">
@@ -140,6 +141,45 @@ def plan(entrees: list[tuple[str, str]], etiquette: str = "Dans cette page") -> 
                     for ancre, libelle in entrees)
     return (f'<nav class="plan" aria-label="{escape(etiquette)}">'
             f'<p class="etiquette">{escape(etiquette)}</p><ol>{items}</ol></nav>')
+
+
+_UNITES = ("zéro", "un", "deux", "trois", "quatre", "cinq", "six", "sept",
+           "huit", "neuf", "dix", "onze", "douze", "treize", "quatorze",
+           "quinze", "seize", "dix-sept", "dix-huit", "dix-neuf")
+_DIZAINES = {2: "vingt", 3: "trente", 4: "quarante", 5: "cinquante",
+             6: "soixante"}
+
+
+def en_lettres(n: int) -> str:
+    """Un nombre de 0 à 99 écrit en toutes lettres : « quarante et un ».
+
+    Pour les comptes que le site écrit dans ses phrases — « les quarante
+    fiches » — et qui doivent suivre le registre au lieu d'être recopiés : un
+    compte écrit à la main était faux dès la fiche suivante.
+    """
+    if not 0 <= n < 100:
+        raise ValueError(f"en_lettres ne sait écrire que de 0 à 99 : {n}")
+    if n < 20:
+        return _UNITES[n]
+    dizaine, unite = divmod(n, 10)
+    if dizaine in (7, 9):  # soixante-dix, quatre-vingt-dix : on repart de dix
+        base = "soixante" if dizaine == 7 else "quatre-vingt"
+        reste = 10 + unite
+        if dizaine == 7 and unite == 1:
+            return "soixante et onze"
+        return f"{base}-{_UNITES[reste]}"
+    if dizaine == 8:
+        return "quatre-vingts" if unite == 0 else f"quatre-vingt-{_UNITES[unite]}"
+    if unite == 0:
+        return _DIZAINES[dizaine]
+    if unite == 1:
+        return f"{_DIZAINES[dizaine]} et un"
+    return f"{_DIZAINES[dizaine]}-{_UNITES[unite]}"
+
+
+def fiches_du_registre() -> str:
+    """« quarante » : le nombre de fiches du registre, en toutes lettres."""
+    return en_lettres(len(CHIFFRES))
 
 
 def fiche(etiquette: str, valeur: str, precision: str = "") -> str:
@@ -224,25 +264,35 @@ def depliant(titre: str, corps: str) -> str:
 
 
 def tableau(entetes: list[str], lignes: list[list[str]], legende: str = "",
-            classes_colonnes: list[str] | None = None) -> str:
+            classes_colonnes: list[str] | None = None,
+            pied: list[list[str]] | None = None) -> str:
     """Un tableau, avec sa légende au-dessus.
 
     ``classes_colonnes`` dit comment chaque colonne s'aligne : ``texte``,
     ``nombre``, ``date`` ou ``long``. Un nombre aligné à gauche ne se compare
     pas d'une ligne à l'autre, et c'est tout ce qu'on demande à un tableau.
+
+    ``pied`` porte les lignes de total, dans un ``<tfoot>`` : un total n'est
+    pas une ligne comme les autres, et une synthèse vocale doit pouvoir le
+    dire.
     """
     classes = classes_colonnes or ["texte"] * len(entetes)
+
+    def rangees(lignes: list[list[str]]) -> str:
+        html = ""
+        for ligne in lignes:
+            cellules = f'<th scope="row" class="{classes[0]}">{ligne[0]}</th>'
+            cellules += "".join(f'<td class="{c}">{v}</td>'
+                                for v, c in zip(ligne[1:], classes[1:]))
+            html += f"<tr>{cellules}</tr>"
+        return html
+
     tete = "".join(f'<th scope="col" class="{c}">{e}</th>'
                    for e, c in zip(entetes, classes))
-    corps = ""
-    for ligne in lignes:
-        cellules = f'<th scope="row" class="{classes[0]}">{ligne[0]}</th>'
-        cellules += "".join(f'<td class="{c}">{v}</td>'
-                            for v, c in zip(ligne[1:], classes[1:]))
-        corps += f"<tr>{cellules}</tr>"
     cap = f"<caption>{legende}</caption>" if legende else ""
+    fin = f"<tfoot>{rangees(pied)}</tfoot>" if pied else ""
     return (f'<div class="defilant"><table>{cap}<thead><tr>{tete}</tr></thead>'
-            f"<tbody>{corps}</tbody></table></div>")
+            f"<tbody>{rangees(lignes)}</tbody>{fin}</table></div>")
 
 
 # ---------------------------------------------------------------------------

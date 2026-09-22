@@ -86,9 +86,9 @@ tenaces : corriger l'un sans les autres ne produit presque rien.</p>
               "demande chemine. Et la majorité de ces personnes obtiendront "
               "une protection : le taux est désormais de 52 %, recours "
               "compris." + g.renvoi("asile-protection") + " Nous faisons donc "
-              "attendre dix-huit mois, aux frais du contribuable, des gens "
-              "dont plus d'un sur deux avait droit à rester dès le premier "
-              "jour.</p>"
+              "attendre près de dix mois en moyenne" + g.renvoi("delai-asile")
+              + ", aux frais du contribuable, des gens dont plus d'un sur deux "
+              "avait droit à rester dès le premier jour.</p>"
               "<p>Les pays qui ont ouvert le travail plus tôt n'ont pas "
               "constaté l'afflux annoncé, mais une baisse du coût "
               "d'hébergement et un meilleur taux d'emploi ultérieur, y "
@@ -268,7 +268,7 @@ est favorable, et nous préférons l'écrire.</p>
         "<p>La bonne question n'est pas « combien coûte l'immigration ? » mais "
         "« combien coûte l'immigration <em>empêchée de travailler</em> ? ». À "
         "celle-là, la réponse est chiffrable, et nous la chiffrons dans "
-        "<a href=\"programme.html#chiffrage\">le programme</a> : "
+        "<a href=\"chiffrage.html\">le chiffrage du programme</a> : "
         "l'hébergement et l'allocation de l'attente, la lutte contre "
         "l'irrégularité, et les cotisations non perçues.</p>")
 

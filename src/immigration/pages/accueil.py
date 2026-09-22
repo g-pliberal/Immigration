@@ -92,7 +92,8 @@ def construire() -> str:
         "contestables — et chacun renvoie à sa fiche.</strong> Cliquez "
         "l'année qui suit un chiffre : vous y trouverez la source exacte, "
         "l'année des données, l'évolution, et <em>ce que le chiffre ne dit "
-        "pas</em>. Les vingt-sept fiches sont rassemblées dans "
+        f"pas</em>. Les {g.fiches_du_registre()} fiches sont rassemblées "
+        "dans "
         "<a href=\"chiffres.html\">Tous les chiffres</a>. Un programme qui "
         "demande qu'on le croie sur parole ne mérite pas qu'on le lise.</p>",
         "resume")
@@ -123,11 +124,12 @@ def construire() -> str:
     <p>Ouvrir le travail, parce qu'un employeur qui embauche et un adulte qui
     accepte n'ont pas besoin qu'un service d'État vérifie d'abord si le poste
     aurait pu revenir à quelqu'un d'autre. Juger vite, parce qu'une procédure
-    d'asile qui dure dix-huit mois fabrique elle-même l'irrégularité qu'on lui
-    reproche ensuite. Rendre des comptes, parce qu'une réforme dont personne ne
+    d'asile qui dure près de dix mois fabrique elle-même l'irrégularité qu'on
+    lui reproche ensuite. Rendre des comptes, parce qu'une réforme dont personne ne
     peut dire à quelle condition elle aurait échoué n'est pas une réforme, mais
     une profession de foi.</p>
     <p><a href="programme.html">Lire le programme</a> ·
+    <a href="chiffrage.html">Ce qu'il coûte et rapporte</a> ·
     <a href="parcours.html">Comparer les parcours</a></p>
   </div>
 </div>

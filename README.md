@@ -1,9 +1,10 @@
 # Immigration — le programme du Parti libéral français
 
-Un site statique de huit pages : ce que fait la France aujourd'hui en matière
+Un site statique de neuf pages : ce que fait la France aujourd'hui en matière
 d'immigration, pourquoi ce système rate ses propres objectifs, et l'alternative
-libérale que le parti propose — avec son chiffrage, ses limites, les onze
-objections qu'on lui oppose, et les trois seuils qui nous donneraient tort.
+libérale que le parti propose — avec son chiffrage calculé, ses limites, les
+onze objections qu'on lui oppose, et les trois seuils qui nous donneraient
+tort.
 
 **Le site : [g-pliberal.github.io/immigration](https://g-pliberal.github.io/immigration/)**
 
@@ -12,7 +13,8 @@ objections qu'on lui oppose, et les trois seuils qui nous donneraient tort.
 | `index.html` | La promesse, les sept engagements, et où s'arrête l'ouverture |
 | `aujourdhui.html` | Le droit en vigueur, le pacte européen, et les chiffres publics |
 | `blocages.html` | Les cinq mécanismes qui font échouer le système |
-| `programme.html` | Les sept engagements, texte par texte, avec calendrier et chiffrage |
+| `programme.html` | Les sept engagements, texte par texte, avec calendrier et synthèse du chiffrage |
+| `chiffrage.html` | Les plus et les moins de chaque engagement par rapport à aujourd'hui : poste par poste, année par année, deux scénarios, chaque hypothèse sourcée |
 | `parcours.html` | Un comparateur : le même cas, en trois colonnes |
 | `objections.html` | Onze objections dans leur version forte, et nos réponses |
 | `chiffres.html` | Chaque chiffre du site, sa source, son millésime, sa réserve |
@@ -40,7 +42,7 @@ sert telles quelles, sans étape de construction. On ne les modifie donc jamais
 à la main — on modifie le module Python qui les produit, et on relance :
 
 ```sh
-python scripts/construire.py            # écrit les huit pages
+python scripts/construire.py            # écrit les pages
 python scripts/construire.py --verifier # échoue si elles ne sont pas à jour
 python scripts/verifier.py              # pages à jour, liens, ancres, ressources
 ```
@@ -61,6 +63,7 @@ moteur/icones/                   les tracés Lucide (ISC) recopiés sans retouch
 moteur/js/parcours.js            le comparateur, sans dépendance
 src/immigration/gabarit.py       bandeau, affiche, pied, fragments communs
 src/immigration/chiffres.py      LE REGISTRE : un chiffre, sa source, sa réserve
+src/immigration/chiffrage.py     LE CHIFFRAGE : hypothèses, postes, scénarios
 src/immigration/pages/           une page = un module
 scripts/construire.py            écrit les pages
 scripts/verifier.py              vérifie le dépôt sans rien installer
@@ -95,6 +98,33 @@ ans l'apparence de la fraîcheur — c'était le cas, et c'est corrigé.
 Un chiffre périmé, une source qui manque, une objection mal formulée : les
 corrections se proposent en *issue* ou en *pull request*.
 
+## Le chiffrage
+
+`src/immigration/chiffrage.py` calcule ce que chaque engagement coûte ou
+rapporte aux finances publiques, **par rapport à la situation actuelle**. Rien
+n'y est écrit à la main hormis les hypothèses :
+
+- **chaque hypothèse** a une borne basse, une borne haute, une nature
+  (*constat*, *estimation*, *hypothèse*, *paramètre*) et ce qui la justifie ;
+  une valeur publiée est **lue dans le registre** (`_lu("renouvellements")`),
+  pas recopiée ;
+- **chaque poste** est un plus (économie, recette) ou un moins (dépense,
+  recette perdue), avec sa formule en français et son calcul en Python ;
+- **deux scénarios** : le *prudent* retient pour chaque hypothèse la borne qui
+  dégrade le solde de l'année, le *favorable* celle qui l'améliore — des
+  mondes cohérents, pas des bornes additionnées ligne à ligne ;
+- **deux curseurs** affichés à part : le nombre de régularisations
+  supplémentaires et d'éloignements supplémentaires, avec l'effet de chaque
+  tranche.
+
+Les phrases de la page qui tirent une conclusion du calcul (« le scénario
+prudent reste négatif », « le signe du solde tient d'abord à la part de
+travail au noir ») sont **vérifiées à la construction** par
+`pages/chiffrage.py:constats` : une hypothèse corrigée qui les démentirait
+fait échouer la construction au lieu de publier une phrase fausse. Changer une
+hypothèse, c'est donc changer une ligne de `chiffrage.py`, relancer
+`scripts/construire.py`, et lire ce qui casse.
+
 ## Ce que la relecture adverse a changé
 
 Le site a été relu ligne à ligne comme l'aurait fait un contradicteur
@@ -115,7 +145,11 @@ corrige en silence donne à penser qu'il a quelque chose à cacher. En résumé 
 - **le comparateur a trois colonnes**, l'étape consulaire est rétablie et les
   barres promises sont hachurées ;
 - **un chiffrage** poste par poste remplace « le coût net est probablement
-  négatif ».
+  négatif » — puis un chiffrage **calculé** (page `chiffrage.html`) remplace
+  ce tableau de phrases, et corrige ce qu'il laissait passer : les
+  renouvellements évités (170 000 à 250 000, pas 600 000 à 700 000), la
+  gratuité des renouvellements jamais comptée, une attente d'asile de dix mois
+  et non dix-huit, le vrai coût d'un éloignement.
 
 ## Licences
 

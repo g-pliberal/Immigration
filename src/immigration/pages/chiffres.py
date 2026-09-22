@@ -57,7 +57,8 @@ def construire() -> str:
     corps = g.affiche(
         "Pour aller plus loin",
         "Tous les chiffres, <span class=\"serif\">et leurs limites</span>",
-        "Les vingt-sept chiffres cités sur ce site, un par fiche : la valeur "
+        f"Les {g.fiches_du_registre()} chiffres cités sur ce site, un par "
+        "fiche : la valeur "
         "publiée, la source exacte, l'année des <em>données</em> — qui n'est "
         "pas celle de la publication — et ce que le chiffre ne dit pas. "
         "Chaque chiffre du site renvoie ici.")

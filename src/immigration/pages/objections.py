@@ -83,7 +83,10 @@ def construire() -> str:
               "cette politique. C'est pourquoi le programme prévoit des "
               "critères révisables et un "
               "<a href=\"programme.html#sept\">réexamen annuel</a>, et non "
-              "une promesse de nombre.</p>",
+              "une promesse de nombre. Ce que nous savons chiffrer, c'est le "
+              "prix de chaque tranche, dans un sens comme dans l'autre : "
+              "<a href=\"chiffrage.html#flux\">10 000 salariés ou 10 000 "
+              "demandes d'asile de plus</a>.</p>",
         identifiant="appel-air")
 
     corps += g.cle(
