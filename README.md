@@ -151,6 +151,13 @@ corrige en silence donne à penser qu'il a quelque chose à cacher. En résumé 
   gratuité des renouvellements jamais comptée, une attente d'asile de dix mois
   et non dix-huit, le vrai coût d'un éloignement.
 
+La relecture de **novembre 2026** tient compte du rejet par le Sénat, le
+5 novembre, de la proposition de loi qui aurait pérennisé la régularisation
+par le travail, et de la circulaire annoncée pour remplacer l'article
+L. 435-4. Le projet de loi de finances pour 2027 est signalé dans les fiches,
+mais le chiffrage reste calculé sur les crédits votés pour 2026 tant que ceux
+de 2027 ne le sont pas.
+
 ## Licences
 
 - Code (Python, JavaScript, CSS d'origine) : **Apache 2.0** (`LICENSE`).
