@@ -66,6 +66,14 @@ SOURCES = [
          "Le texte de référence : conditions de séjour, procédure d'asile, "
          "éloignement. L'article L. 435-4, voie de régularisation par les "
          "métiers en tension, expire le 31 décembre 2026."),
+        ("https://www.senat.fr/seances/s202611/s20261105/"
+         "s20261105004.html",
+         "Sénat, séance du 5 novembre 2026 — proposition de loi n° 865 "
+         "(2024-2025) sur l'emploi des étrangers dans les métiers en tension",
+         "Le texte, qui aurait fait de la régularisation par le travail un "
+         "titre de plein droit, est rejeté. La ministre chargée de la "
+         "citoyenneté y confirme la fin de l'article L. 435-4 et annonce une "
+         "circulaire sur l'admission exceptionnelle par le travail."),
         ("https://www.legifrance.gouv.fr/codes/section_lc/LEGITEXT000006072050/"
          "LEGISCTA000006178264/",
          "Code du travail, art. L. 5221-1 et suivants",
@@ -478,6 +486,36 @@ chiffrage</a>.</p>
         legende="Les corrections apportées par le chiffrage, en septembre "
                 "2026.",
         classes_colonnes=["long", "long", "long"])
+
+    corps += """
+<h3 id="mise-a-jour-novembre-2026">La relecture de novembre 2026</h3>
+<p>Deux mois après la précédente, une relecture pour ce qui a bougé depuis.
+Elle ne corrige aucune erreur ; elle tient le site à jour.</p>
+"""
+    corps += g.tableau(
+        ["Ce qui a changé", "Ce que le site en dit maintenant"],
+        [["Le Sénat a rejeté le 5 novembre 2026 la proposition de loi "
+          "n° 865, qui aurait fait de la régularisation par le travail un "
+          "titre de plein droit ; le Gouvernement a confirmé la fin de "
+          "l'article L. 435-4 au 31 décembre et annoncé une circulaire",
+          "La page <a href=\"aujourdhui.html\">Aujourd'hui</a> le dit, avec "
+          "la source, et le calendrier du programme aussi : après le "
+          "31 décembre, la régularisation par le travail ne reposera plus que "
+          "sur une circulaire"],
+         ["Le projet de loi de finances pour 2027 a été déposé le "
+          "1er octobre : 2,09 Md€ pour la mission, 17 000 éloignements forcés "
+          "visés en 2027",
+          "Signalé dans les fiches concernées. Le chiffrage reste calculé sur "
+          "les crédits <strong>votés</strong> pour 2026 : le projet a été "
+          "rejeté en première lecture à l'Assemblée nationale le 4 novembre, "
+          "et ce site a déjà eu à corriger un chiffre de projet de loi cité "
+          "comme une loi votée"],
+         ["Écart entre les 111 855 places d'hébergement citées ici et les "
+          "113 555 du document de politique transversale",
+          "Expliqué dans la fiche : 1 700 places sont financées par un fonds "
+          "européen, hors mission"]],
+        legende="Ce que la relecture de novembre 2026 a mis à jour.",
+        classes_colonnes=["long", "long"])
 
     corps += """
 <h2 id="limites">Les limites de ce site</h2>

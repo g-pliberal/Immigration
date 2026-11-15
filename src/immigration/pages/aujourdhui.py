@@ -291,8 +291,10 @@ en cours de navette.</p>
         "tension</strong> : l'article L. 435-4 du CESEDA, voie d'admission "
         "exceptionnelle pour un salarié justifiant de douze mois de travail "
         "dans ces métiers sur vingt-quatre et de trois ans de présence. "
-        "<strong>Ce dispositif est expérimental et expire le 31 décembre "
-        "2026</strong> : aucune loi ne l'a prorogé à ce jour.</li>"
+        "<strong>Ce dispositif est temporaire et expire le 31 décembre "
+        "2026</strong> (loi du 26 janvier 2024, art. 27, III) : aucune loi "
+        "ne l'a prorogé, et le Sénat a rejeté le 5 novembre 2026 une "
+        "proposition de loi qui en aurait fait un titre de plein droit.</li>"
         "<li><strong>Condition de langue</strong> renforcée pour la "
         "délivrance de certaines cartes pluriannuelles et pour la carte de "
         "résident.</li>"
@@ -318,10 +320,16 @@ en cours de navette.</p>
         "<p><strong>Une échéance que le débat public n'a pas vue.</strong> "
         "La seule voie légale ouverte depuis 2024 à un travailleur déjà "
         "présent et employé — l'article L. 435-4 — <strong>disparaît le "
-        "31 décembre 2026</strong>. Sans texte de remplacement, on revient au "
-        "pur pouvoir discrétionnaire de la circulaire. Notre engagement 1 "
-        "n'est donc pas une proposition en l'air : c'est la réponse à un vide "
-        "juridique daté.</p>", "avertissement")
+        "31 décembre 2026</strong>. Le Gouvernement l'a confirmé devant le "
+        "Sénat le 5 novembre 2026 et a dit ce qui la remplacera : une "
+        "circulaire, « publiée avant la fin de l'année », qui « devrait "
+        "reprendre l'économie du dispositif » dans le cadre de l'admission "
+        "exceptionnelle de droit commun (article L. 435-1). Autrement dit, le "
+        "retour au pur pouvoir discrétionnaire : des critères qu'aucun "
+        "étranger ne peut opposer à un préfet, et qu'une autre circulaire "
+        "peut défaire. Notre engagement 1 n'est donc pas une proposition en "
+        "l'air : c'est la réponse à un vide juridique daté.</p>",
+        "avertissement")
 
     corps += """
 <h2 id="pacte">Le pacte européen, appliqué depuis le 12 juin 2026</h2>

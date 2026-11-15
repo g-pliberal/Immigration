@@ -591,7 +591,8 @@ plutôt que de laisser un contradicteur le remplir à notre place.</p>
           "exceptionnelle, avant l'expiration de l'article L. 435-4 le "
           "31 décembre 2026",
           "Loi nationale. Échéance contrainte : sans texte, retour au pur "
-          "pouvoir discrétionnaire"],
+          "pouvoir discrétionnaire — c'est ce que le Gouvernement a annoncé "
+          "le 5 novembre 2026, avec une simple circulaire"],
          ["Loi, première année",
           "Débat annuel, indicateurs publiés, critères révisables",
           "Loi organique ou ordinaire selon le véhicule retenu"],
