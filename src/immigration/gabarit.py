@@ -32,7 +32,7 @@ SITE_PARENT = "https://partiliberalfrancais.fr/"
 # `RELECTURE` est la date à laquelle le site a été relu et corrigé.
 # `MILLESIME` est l'année des données les plus récentes qu'il cite ; chaque
 # chiffre porte en outre la sienne dans `chiffres.py`, qui fait foi.
-RELECTURE = "septembre 2026"
+RELECTURE = "novembre 2026"
 MILLESIME = "2025"
 
 # Les pages, dans l'ordre où elles se lisent, groupées comme le bandeau les

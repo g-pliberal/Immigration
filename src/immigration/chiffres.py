@@ -235,7 +235,12 @@ CHIFFRES: dict[str, Chiffre] = {
              "en-2025"),
         annee="2025", publie="avril 2026",
         evolution="en baisse de plus de moitié sur un an ; la voie « métiers "
-                  "en tension » de la loi de 2024 n'en a produit que 1 655",
+                  "en tension » de la loi de 2024 n'en a produit que 1 655. "
+                  "Le Gouvernement a confirmé l'ordre de grandeur devant le "
+                  "Sénat le 5 novembre 2026 (« près de 10 000 admissions ») "
+                  "et donné la part de réponses favorables au titre de "
+                  "l'article L. 435-4 : 4,5 % en 2024, 31 % en 2025, 64 % "
+                  "en 2026",
         reserve="Chiffre rapporté par la presse d'après un document du "
                 "ministère, et non tiré d'une publication statistique : il est "
                 "à remplacer par celui de la DGEF dès sa parution détaillée. "
@@ -342,7 +347,11 @@ CHIFFRES: dict[str, Chiffre] = {
         reserve="Des places programmées, pas des personnes logées. Le "
                 "dispositif ne loge pas tous les demandeurs : une procédure "
                 "plus courte libère des places, qui ne deviennent une économie "
-                "que si elles ferment.",
+                "que si elles ferment. Le document de politique transversale "
+                "2027 compte 113 555 places : la différence, 1 700 places, est "
+                "financée par le fonds européen FAMI et non par la mission ; "
+                "le parc est reconduit à l'identique dans le projet de loi "
+                "pour 2027.",
         familles=("asile", "argent")),
     "ada-beneficiaires": Chiffre(
         valeur="74 200", exact="74 200 prévus pour 2026",
@@ -388,7 +397,8 @@ CHIFFRES: dict[str, Chiffre] = {
         mesure="Éloignements réalisés en un an",
         source=_DGEF, url=_DGEF_URL, annee="2025", publie="janvier 2026",
         evolution="+ 15,7 % sur un an ; + 21 % pour les seuls éloignements "
-                  "forcés",
+                  "forcés. Le projet de loi de finances pour 2027 vise 17 000 "
+                  "éloignements forcés en 2027 et 19 000 en 2029",
         reserve="En hausse nette, et le site doit le dire : l'argument « rien "
                 "ne bouge » n'est plus exact. Ce qui reste vrai est l'écart "
                 "entre les décisions prononcées et les départs réalisés.",
@@ -485,12 +495,17 @@ CHIFFRES: dict[str, Chiffre] = {
         url=("https://www.assemblee-nationale.fr/dyn/17/textes/"
              "l17t0227_texte-adopte-seance.pdf"),
         annee="2026", publie="février 2026",
-        evolution="2,16 Md€ dans le projet de loi ; 2,08 Md€ votés pour 2025",
+        evolution="2,16 Md€ dans le projet de loi ; 2,08 Md€ votés pour 2025. "
+                  "Le projet de loi de finances pour 2027 propose "
+                  "2,09 Md€ (2 087 596 615 €, − 2,0 %) ; rejeté en "
+                  "première lecture par l'Assemblée nationale le "
+                  "4 novembre 2026, il n'est pas voté à ce jour",
         reserve="Ce n'est pas « le coût de l'immigration » : la mission ne "
                 "porte ni l'école, ni la santé, ni les prestations sociales, "
                 "et ne comptabilise aucune recette. Ce site citait 2,16 Md€ : "
                 "c'était le chiffre du projet de loi, pas celui de la loi "
-                "votée.",
+                "votée — et c'est pourquoi il s'en tient aux crédits votés "
+                "pour 2026 tant que ceux de 2027 ne le sont pas.",
         familles=("argent",)),
     "ada-credits": Chiffre(
         valeur="222 M€", exact="222,2 millions d'euros pour les seuls "
