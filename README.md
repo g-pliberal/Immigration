@@ -46,6 +46,7 @@ python scripts/construire.py            # écrit les pages
 python scripts/construire.py --verifier # échoue si elles ne sont pas à jour
 python scripts/verifier.py              # pages à jour, liens, ancres, ressources, échéances
 python scripts/verifier.py --date 2027-01-01   # les échéances, vues depuis ce jour
+python -m unittest discover -s tests    # tests du chiffrage
 ```
 
 Aucune dépendance : Python 3.10 suffit. Pour regarder le site en local :
@@ -69,6 +70,7 @@ src/immigration/echeances.py     les phrases datées et le jour où elles devien
 src/immigration/pages/           une page = un module
 scripts/construire.py            écrit les pages
 scripts/verifier.py              vérifie le dépôt sans rien installer
+tests/test_chiffrage.py          les mécanismes et les promesses du chiffrage
 ```
 
 Les durées et les étapes du comparateur sont écrites dans
