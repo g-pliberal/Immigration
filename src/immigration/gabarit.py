@@ -32,8 +32,34 @@ SITE_PARENT = "https://partiliberalfrancais.fr/"
 # `RELECTURE` est la date à laquelle le site a été relu et corrigé.
 # `MILLESIME` est l'année des données les plus récentes qu'il cite ; chaque
 # chiffre porte en outre la sienne dans `chiffres.py`, qui fait foi.
-RELECTURE = "novembre 2026"
+RELECTURE = "janvier 2027"
 MILLESIME = "2025"
+
+# L'article L. 435-4 du CESEDA a pris fin le 31 décembre 2026. Le Gouvernement
+# a annoncé devant le Sénat, le 5 novembre 2026, une circulaire sur
+# l'admission exceptionnelle par le travail (article L. 435-1) pour en
+# « reprendre l'économie ». Tant qu'elle n'est pas publiée, cette constante
+# vaut None et les pages disent « une circulaire annoncée ». Publiée, on y
+# écrit (date, intitulé, adresse) — par exemple ("12 décembre 2026",
+# "Circulaire du 12 décembre 2026 relative à…", "https://…") — et les pages
+# Aujourd'hui, Programme et Sources la citent d'elles-mêmes.
+CIRCULAIRE_TRAVAIL: tuple[str, str, str] | None = None
+
+
+def circulaire_travail(longue: bool = True) -> str:
+    """Ce qui remplace l'article L. 435-4, dit selon l'état de la circulaire."""
+    if CIRCULAIRE_TRAVAIL is None:
+        if not longue:
+            return "une circulaire, annoncée et non publiée à ce jour"
+        return ("une circulaire, que le Gouvernement a annoncée devant le "
+                "Sénat le 5 novembre 2026 et qui n'était pas publiée à la date "
+                "de cette relecture")
+    date, intitule, url = CIRCULAIRE_TRAVAIL
+    lien = f'<a href="{escape(url)}">la circulaire du {date}</a>'
+    if not longue:
+        return lien
+    return (f"{lien}, annoncée par le Gouvernement devant le Sénat le "
+            "5 novembre 2026")
 
 # Les pages, dans l'ordre où elles se lisent, groupées comme le bandeau les
 # montre. Le premier élément d'un couple est le fichier, le second le libellé.

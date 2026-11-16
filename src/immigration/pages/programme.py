@@ -83,8 +83,9 @@ fonctionner.</p>
           "Refus possible au titre de la situation de l'emploi",
           "Abrogé, listes de métiers en tension comprises"],
          ["CESEDA, art. L. 435-4",
-          "Régularisation « métiers en tension », discrétionnaire — et "
-          "<strong>expire le 31 décembre 2026</strong>",
+          "Régularisation « métiers en tension », discrétionnaire — "
+          "<strong>a pris fin le 31 décembre 2026</strong>, sans texte de "
+          "remplacement",
           "Remplacé par un droit sur critères, permanent et opposable"],
          ["CESEDA, admission exceptionnelle au séjour",
           "Régularisation discrétionnaire, au cas par cas : 28 610 décisions "
@@ -105,15 +106,16 @@ fonctionner.</p>
               "et régularisera encore. C'est <em>comment</em>. Aujourd'hui : "
               "un pouvoir discrétionnaire, des critères de circulaire "
               "opposables à personne, des réponses qui varient d'une "
-              "préfecture à l'autre pour un dossier identique, et un "
-              "dispositif légal qui expire dans quelques semaines. Demain : "
+              "préfecture à l'autre pour un dossier identique, et, depuis "
+              "le 1er janvier 2027, plus aucun dispositif légal propre au "
+              "travail. Demain : "
               "des conditions écrites dans la loi, vérifiables, refusables et "
               "contestables devant un juge.</p>"
               "<p><strong>Les critères, chiffrés</strong>, parce qu'un "
               "critère sans chiffre est une promesse sans contenu : douze "
               "mois de présence en France, six mois d'activité sur les douze "
               "derniers, identité établie, casier vérifié, employeur "
-              "identifié. C'est plus ouvert que l'article L. 435-4 actuel "
+              "identifié. C'est plus ouvert que ne l'était l'article L. 435-4 "
               "(trois ans de présence, douze mois de travail sur "
               "vingt-quatre), et nous ne le cachons pas : c'est le "
               "point du programme sur lequel un adversaire a le plus de "
@@ -588,11 +590,11 @@ plutôt que de laisser un contradicteur le remplir à notre place.</p>
           "qu'elle n'ajoute"],
          ["Loi, première année",
           "Droit au séjour sur critères remplaçant l'admission "
-          "exceptionnelle, avant l'expiration de l'article L. 435-4 le "
-          "31 décembre 2026",
-          "Loi nationale. Échéance contrainte : sans texte, retour au pur "
-          "pouvoir discrétionnaire — c'est ce que le Gouvernement a annoncé "
-          "le 5 novembre 2026, avec une simple circulaire"],
+          "exceptionnelle, et comblant le vide laissé par la fin de "
+          "l'article L. 435-4 le 31 décembre 2026",
+          "Loi nationale. Échéance passée : depuis le 1er janvier 2027, la "
+          "régularisation par le travail ne repose plus que sur "
+          + g.circulaire_travail(longue=False)],
          ["Loi, première année",
           "Débat annuel, indicateurs publiés, critères révisables",
           "Loi organique ou ordinaire selon le véhicule retenu"],
