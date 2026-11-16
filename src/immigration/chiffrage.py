@@ -1014,7 +1014,7 @@ SENSIBILITES = (
         "de 10 000 régularisations annuelles de plus que notre repère — ou de "
         "moins, au signe près. Tout tient à la part de travail au noir et aux "
         "familles.",
-        "10 000 × 4,5 cohortes × ({part-non-declares} au noir × "
+        "10 000 × 4 cohortes × ({part-non-declares} au noir × "
         "{prelevements-smic} × {quotite} − {prestations-regularise}) + "
         "10 000 × ({taxes-regularisation} + {mois-rappel} de rappel × "
         "{part-rappels-payes} − {cout-dossier-regularisation} ÷ "

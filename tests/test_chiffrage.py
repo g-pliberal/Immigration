@@ -22,6 +22,7 @@ from __future__ import annotations
 
 import itertools
 import pathlib
+import re
 import sys
 import unittest
 from unittest import mock
@@ -187,6 +188,16 @@ class Mecanismes(unittest.TestCase):
         # ne court que six mois), trois pleines, une demie l'année 5.
         v = valeurs(regularisations_debut=1, regularisations_regime=1)
         self.assertAlmostEqual(c._regularises(v, 5), 4.0)
+
+    def test_la_formule_affichee_compte_les_memes_cohortes(self):
+        # La formule de la sensibilité écrit le nombre de cohortes en clair :
+        # il doit être celui que le calcul retient en année 5.
+        s = next(s for s in c.SENSIBILITES if s.cle == "regularisations")
+        ecrit = re.search(r"× ([\d,]+) cohortes", s.formule)
+        self.assertIsNotNone(ecrit, s.formule)
+        v = valeurs(regularisations_debut=1, regularisations_regime=1)
+        self.assertAlmostEqual(float(ecrit.group(1).replace(",", ".")),
+                               c._regularises(v, 5))
 
     def test_prelevements_par_regularise(self):
         v = valeurs(part_non_declares=0.5, prelevements_smic=10_000,
