@@ -45,6 +45,7 @@ sert telles quelles, sans étape de construction. On ne les modifie donc jamais
 python scripts/construire.py            # écrit les pages
 python scripts/construire.py --verifier # échoue si elles ne sont pas à jour
 python scripts/verifier.py              # pages à jour, liens, ancres, ressources
+python -m unittest discover -s tests    # tests du chiffrage
 ```
 
 Aucune dépendance : Python 3.10 suffit. Pour regarder le site en local :
@@ -67,6 +68,7 @@ src/immigration/chiffrage.py     LE CHIFFRAGE : hypothèses, postes, scénarios
 src/immigration/pages/           une page = un module
 scripts/construire.py            écrit les pages
 scripts/verifier.py              vérifie le dépôt sans rien installer
+tests/test_chiffrage.py          les mécanismes et les promesses du chiffrage
 ```
 
 Les durées et les étapes du comparateur sont écrites dans

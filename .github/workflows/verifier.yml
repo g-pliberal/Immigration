@@ -18,3 +18,5 @@ jobs:
           python-version: "3.12"
       - name: Pages à jour, liens, ancres et ressources
         run: python scripts/verifier.py
+      - name: Tests du chiffrage
+        run: python -m unittest discover -s tests -v
