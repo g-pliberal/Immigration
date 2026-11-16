@@ -2,12 +2,19 @@
 """Vérifie le site sans rien installer : pages à jour, liens et fichiers.
 
     python scripts/verifier.py
+    python scripts/verifier.py --date 2027-01-01   # comme si on était ce jour-là
 
 Ce n'est pas un validateur HTML, et cela ne remplace pas une relecture. Cela
 attrape les trois fautes qu'on commet vraiment en écrivant un site de quelques
 pages à la main : une page régénérée qu'on a oublié de commiter, un lien
 interne vers un fichier ou une ancre qui n'existe pas, et une ressource
 — feuille, script, police, image — appelée mais absente du dépôt.
+
+Il attrape aussi une quatrième faute, qui ne vient d'aucun commit : une phrase
+vraie le jour où on l'a écrite et devenue fausse depuis (« l'article L. 435-4
+expire le 31 décembre 2026 »). Ces phrases sont déclarées dans
+``src/immigration/echeances.py`` ; c'est pourquoi la vérification tourne aussi
+chaque jour sur GitHub, sans attendre un commit.
 
 Aucune dépendance : le dépôt doit se vérifier sur une machine nue, et un
 outillage qu'il faut installer avant de l'exécuter finit par ne plus
@@ -16,7 +23,10 @@ s'exécuter.
 
 from __future__ import annotations
 
+import argparse
+import datetime
 import html.parser
+import os
 import pathlib
 import re
 import subprocess
@@ -33,6 +43,16 @@ class Collecteur(html.parser.HTMLParser):
         self.liens: list[str] = []
         self.ressources: list[str] = []
         self.ancres: set[str] = set()
+        self.morceaux: list[str] = []
+
+    @property
+    def texte(self) -> str:
+        """Le texte publié, balises retirées — y compris les données JSON
+        déposées dans un script, que le lecteur voit une fois rendues."""
+        return " ".join(self.morceaux)
+
+    def handle_data(self, donnees: str) -> None:
+        self.morceaux.append(donnees)
 
     def handle_starttag(self, balise: str, attributs: list[tuple[str, str]]) -> None:
         a = dict(attributs)
@@ -54,6 +74,13 @@ def pages() -> dict[str, Collecteur]:
 
 
 def main() -> int:
+    analyseur = argparse.ArgumentParser(description=__doc__.splitlines()[0])
+    analyseur.add_argument(
+        "--date", type=datetime.date.fromisoformat,
+        default=datetime.date.today(),
+        help="vérifier les échéances comme si on était ce jour (AAAA-MM-JJ)")
+    arguments = analyseur.parse_args()
+
     fautes: list[str] = []
 
     # 1. Les pages correspondent-elles à leur module ?
@@ -106,12 +133,27 @@ def main() -> int:
         if not chemin.exists():
             fautes.append(f"style.css : police absente « {police} »")
 
+    # 5. Les phrases datées sont-elles encore vraies ?
+    from immigration import echeances  # noqa: E402
+
+    perimees, avertissements = echeances.verifier(
+        {nom: page.texte for nom, page in releve.items()}, arguments.date)
+    fautes += perimees
+    if avertissements:
+        print("\n".join(f"  ! {a}" for a in avertissements))
+        # Sur GitHub, une annotation : le préavis se voit sans ouvrir le
+        # journal de l'exécution.
+        if os.environ.get("GITHUB_ACTIONS") == "true":
+            for a in avertissements:
+                print(f"::warning title=Échéance::{a}")
+
     if fautes:
         print("\n".join(f"  — {f}" for f in fautes), file=sys.stderr)
         print(f"\n{len(fautes)} problème(s).", file=sys.stderr)
         return 1
     print(f"{len(releve)} pages, liens internes, ancres et ressources : "
-          "tout est en place.")
+          f"tout est en place ; {len(echeances.ECHEANCES)} échéance(s) "
+          f"à jour au {arguments.date:%d/%m/%Y}.")
     return 0
 
 

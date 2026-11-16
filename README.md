@@ -44,7 +44,8 @@ sert telles quelles, sans étape de construction. On ne les modifie donc jamais
 ```sh
 python scripts/construire.py            # écrit les pages
 python scripts/construire.py --verifier # échoue si elles ne sont pas à jour
-python scripts/verifier.py              # pages à jour, liens, ancres, ressources
+python scripts/verifier.py              # pages à jour, liens, ancres, ressources, échéances
+python scripts/verifier.py --date 2027-01-01   # les échéances, vues depuis ce jour
 ```
 
 Aucune dépendance : Python 3.10 suffit. Pour regarder le site en local :
@@ -64,6 +65,7 @@ moteur/js/parcours.js            le comparateur, sans dépendance
 src/immigration/gabarit.py       bandeau, affiche, pied, fragments communs
 src/immigration/chiffres.py      LE REGISTRE : un chiffre, sa source, sa réserve
 src/immigration/chiffrage.py     LE CHIFFRAGE : hypothèses, postes, scénarios
+src/immigration/echeances.py     les phrases datées et le jour où elles deviennent fausses
 src/immigration/pages/           une page = un module
 scripts/construire.py            écrit les pages
 scripts/verifier.py              vérifie le dépôt sans rien installer
@@ -97,6 +99,25 @@ ans l'apparence de la fraîcheur — c'était le cas, et c'est corrigé.
 
 Un chiffre périmé, une source qui manque, une objection mal formulée : les
 corrections se proposent en *issue* ou en *pull request*.
+
+## Les phrases qui périment
+
+Certaines phrases sont exactes aujourd'hui et fausses à une date connue :
+« l'article L. 435-4 expire le 31 décembre 2026 », « une circulaire publiée
+avant la fin de l'année », « le projet de loi de finances n'est pas voté à ce
+jour ». Elles sont déclarées dans `src/immigration/echeances.py`, avec le
+premier jour où elles sont fausses, les motifs qui les retrouvent dans les
+pages publiées et ce qu'il faudra écrire à la place. `scripts/verifier.py` :
+
+- **échoue** si une échéance est passée et qu'une page porte encore la phrase ;
+- **signale** une échéance à moins de trente jours, sans échouer ;
+- **échoue** si une page écrit une date à venir (« 1er mars 2027 ») qu'aucune
+  échéance ne couvre : une phrase datée ne peut pas entrer sans être déclarée.
+
+La vérification tourne chaque matin sur GitHub, sans attendre de commit : le
+1er janvier 2027, le dépôt échoue tout seul tant que les pages parlent de
+l'article L. 435-4 au futur. Une fois les pages récrites, l'entrée échue se
+retire du registre.
 
 ## Le chiffrage
 
