@@ -16,6 +16,7 @@ effet.
 from __future__ import annotations
 
 from .. import chiffres as registre
+from .. import editions
 from .. import gabarit as g
 
 PAGE = {
@@ -41,6 +42,12 @@ def _fiche(cle: str, c: registre.Chiffre) -> str:
         lignes.append(("Évolution", g.escape(c.evolution)))
     lignes.append(
         ("Source", f'<a href="{c.url}" rel="noopener">{g.escape(c.source)}</a>'))
+    suivante = editions.PROCHAINES.get(cle)
+    if suivante:
+        texte = g.escape(suivante.titre)
+        if suivante.quand:
+            texte = f"{g.escape(suivante.quand)} — {texte}"
+        lignes.append(("Prochaine édition", texte))
 
     corps = "".join(f"<dt>{etiquette}</dt><dd>{valeur}</dd>"
                     for etiquette, valeur in lignes)
@@ -89,6 +96,11 @@ Une fiche de cette page qui ne correspond plus à sa source est un défaut du
 site, pas un détail&nbsp;: la correction se propose sur
 <a href="https://github.com/g-pliberal/immigration">le dépôt</a>, et elle est
 publiée avec sa date.</p>
+<p>Chaque fiche dit aussi quand sa source doit publier l'édition
+suivante. Ce jour venu, la vérification automatique du dépôt signale le
+chiffre à reprendre&nbsp;; trois mois plus tard, elle échoue tant qu'il n'a
+pas été repris, ou que le retard de la source n'a pas été écrit. Un chiffre
+ne vieillit pas sur ce site sans que personne le sache.</p>
 <p>Deux fiches portent la mention «&nbsp;part déduite&nbsp;»&nbsp;: le
 communiqué de la DGEF publie le total et les évolutions sans détailler ces
 deux motifs. Nous préférons l'écrire plutôt que d'arrondir en silence.</p>
