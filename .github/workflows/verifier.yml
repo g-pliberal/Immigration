@@ -5,8 +5,9 @@
 # Il se vérifie aussi chaque matin sans qu'aucun commit ne le demande : des
 # phrases du site ont une date de péremption (src/immigration/echeances.py),
 # et le jour où l'une d'elles devient fausse, c'est le calendrier qui a changé,
-# pas le dépôt. Un échec planifié est signalé par courriel au propriétaire du
-# dépôt.
+# pas le dépôt. Il en va de même des chiffres dont la source publie une
+# édition plus récente (src/immigration/editions.py). Un échec planifié est
+# signalé par courriel au propriétaire du dépôt.
 name: Vérifier le site
 
 on:
@@ -25,7 +26,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Pages à jour, liens, ancres, ressources et échéances
+      - name: Pages à jour, liens, ancres, ressources, échéances et éditions
         run: python scripts/verifier.py
-      - name: Tests du chiffrage
+      - name: Tests du chiffrage et du calendrier des sources
         run: python -m unittest discover -s tests -v

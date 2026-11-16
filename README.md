@@ -67,10 +67,12 @@ src/immigration/gabarit.py       bandeau, affiche, pied, fragments communs
 src/immigration/chiffres.py      LE REGISTRE : un chiffre, sa source, sa réserve
 src/immigration/chiffrage.py     LE CHIFFRAGE : hypothèses, postes, scénarios
 src/immigration/echeances.py     les phrases datées et le jour où elles deviennent fausses
+src/immigration/editions.py      pour chaque chiffre, l'édition de sa source qui le remplacera
 src/immigration/pages/           une page = un module
 scripts/construire.py            écrit les pages
 scripts/verifier.py              vérifie le dépôt sans rien installer
 tests/test_chiffrage.py          les mécanismes et les promesses du chiffrage
+tests/test_editions.py           le calendrier des sources et ce qu'il signale
 ```
 
 Les durées et les étapes du comparateur sont écrites dans
@@ -120,6 +122,28 @@ La vérification tourne chaque matin sur GitHub, sans attendre de commit : le
 1er janvier 2027, le dépôt échoue tout seul tant que les pages parlent de
 l'article L. 435-4 au futur. Une fois les pages récrites, l'entrée échue se
 retire du registre.
+
+## Les chiffres qui vieillissent
+
+Un chiffre exact peut devenir dépassé sans qu'une ligne du dépôt change : il
+suffit que sa source publie l'édition suivante. La plupart paraissent à date
+fixe — « L'essentiel de l'immigration » de la DGEF fin janvier, les
+estimations de l'INSEE fin juin, le rapport du Conseil d'État à l'automne.
+Chaque chiffre du registre déclare donc, dans `src/immigration/editions.py`,
+l'édition qui le remplacera et le jour où elle devrait être parue (ou qu'il
+vient d'un rapport ponctuel, sans suite prévue). La page « Tous les chiffres »
+l'affiche sur chaque fiche, et `scripts/verifier.py` :
+
+- **échoue** si un chiffre du registre n'a pas d'édition déclarée ;
+- **signale** une édition attendue dans moins de trente jours, ou qui devrait
+  être parue, avec la liste des chiffres à reprendre ;
+- **échoue** quatre-vingt-dix jours après la date attendue, tant que ces
+  chiffres n'ont pas été repris.
+
+Les dates sont des estimations tirées du calendrier de l'édition précédente.
+Reprendre un chiffre, c'est changer sa valeur dans `chiffres.py` **et**
+déclarer l'édition d'après ; si la source est en retard, on reporte la date
+en écrivant pourquoi.
 
 ## Le chiffrage
 

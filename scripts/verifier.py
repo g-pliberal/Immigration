@@ -14,7 +14,10 @@ Il attrape aussi une quatrième faute, qui ne vient d'aucun commit : une phrase
 vraie le jour où on l'a écrite et devenue fausse depuis (« l'article L. 435-4
 expire le 31 décembre 2026 »). Ces phrases sont déclarées dans
 ``src/immigration/echeances.py`` ; c'est pourquoi la vérification tourne aussi
-chaque jour sur GitHub, sans attendre un commit.
+chaque jour sur GitHub, sans attendre un commit. Une cinquième lui ressemble :
+un chiffre dont la source a publié une édition plus récente, que le site
+continue de présenter comme le dernier connu. Chaque chiffre déclare l'édition
+qui le remplacera dans ``src/immigration/editions.py``.
 
 Aucune dépendance : le dépôt doit se vérifier sur une machine nue, et un
 outillage qu'il faut installer avant de l'exécuter finit par ne plus
@@ -147,13 +150,27 @@ def main() -> int:
             for a in avertissements:
                 print(f"::warning title=Échéance::{a}")
 
+    # 6. Les chiffres sont-ils encore les plus récents que leurs sources
+    #    publient ?
+    from immigration import editions  # noqa: E402
+
+    depassees, a_reprendre = editions.verifier(arguments.date)
+    fautes += depassees
+    if a_reprendre:
+        print("\n".join(f"  ! {a}" for a in a_reprendre))
+        if os.environ.get("GITHUB_ACTIONS") == "true":
+            for a in a_reprendre:
+                print(f"::warning title=Chiffre à reprendre::{a}")
+
     if fautes:
         print("\n".join(f"  — {f}" for f in fautes), file=sys.stderr)
         print(f"\n{len(fautes)} problème(s).", file=sys.stderr)
         return 1
     print(f"{len(releve)} pages, liens internes, ancres et ressources : "
           f"tout est en place ; {len(echeances.ECHEANCES)} échéance(s) "
-          f"à jour au {arguments.date:%d/%m/%Y}.")
+          f"à jour au {arguments.date:%d/%m/%Y} ; "
+          f"{len(editions.PROCHAINES)} chiffres rattachés à leur prochaine "
+          "édition.")
     return 0
 
 
