@@ -90,7 +90,9 @@ CAS = [
         "colonnes": [
             {"genre": "constate", "titre": "Aujourd'hui, en pratique",
              "etapes": [
-                 ["Attente des trois ans de présence exigés (art. L. 435-4)", 12],
+                 ["Attente des trois ans de présence qu'exigeait l'article "
+                  "L. 435-4, et que la circulaire annoncée devrait reprendre",
+                  12],
                  ["Constitution du dossier d'admission exceptionnelle", 3],
                  ["Obtention de l'accord écrit de l'employeur", 3],
                  ["Instruction préfectorale, décision discrétionnaire", 6],
@@ -99,7 +101,7 @@ CAS = [
             {"genre": "garanti", "titre": "Aujourd'hui, ce que la loi garantit",
              "etapes": [
                  ["Aucun droit : l'admission exceptionnelle est "
-                  "discrétionnaire, et l'article L. 435-4 expire le "
+                  "discrétionnaire, et l'article L. 435-4 a pris fin le "
                   "31 décembre 2026", INDEFINI],
              ]},
             {"genre": "promesse",
@@ -113,8 +115,8 @@ CAS = [
              ]},
         ],
         "note": "C'est le cas que la loi de 2024 a voulu traiter par une voie "
-                "« métiers en tension » temporaire, discrétionnaire, et qui "
-                "expire dans quelques semaines. Les deux premières étapes de "
+                "« métiers en tension » temporaire et discrétionnaire, qui a "
+                "pris fin le 31 décembre 2026. Les deux premières étapes de "
                 "la colonne de droite valent zéro mois pour elle, mais "
                 "existent : le programme conserve une durée de présence, et "
                 "le comparateur doit la montrer.",

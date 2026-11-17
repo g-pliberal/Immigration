@@ -291,10 +291,11 @@ en cours de navette.</p>
         "tension</strong> : l'article L. 435-4 du CESEDA, voie d'admission "
         "exceptionnelle pour un salarié justifiant de douze mois de travail "
         "dans ces métiers sur vingt-quatre et de trois ans de présence. "
-        "<strong>Ce dispositif est temporaire et expire le 31 décembre "
-        "2026</strong> (loi du 26 janvier 2024, art. 27, III) : aucune loi "
-        "ne l'a prorogé, et le Sénat a rejeté le 5 novembre 2026 une "
-        "proposition de loi qui en aurait fait un titre de plein droit.</li>"
+        "<strong>Ce dispositif était temporaire et a pris fin le "
+        "31 décembre 2026</strong> (loi du 26 janvier 2024, art. 27, III) : "
+        "aucune loi ne l'a prorogé, et le Sénat avait rejeté le 5 novembre "
+        "2026 une proposition de loi qui en aurait fait un titre de plein "
+        "droit.</li>"
         "<li><strong>Condition de langue</strong> renforcée pour la "
         "délivrance de certaines cartes pluriannuelles et pour la carte de "
         "résident.</li>"
@@ -317,18 +318,18 @@ en cours de navette.</p>
         "<p class=\"discret\">Décision n° 2023-863 DC du 25 janvier 2024.</p>")
 
     corps += g.note(
-        "<p><strong>Une échéance que le débat public n'a pas vue.</strong> "
+        "<p><strong>Une voie légale qui a disparu sans bruit.</strong> "
         "La seule voie légale ouverte depuis 2024 à un travailleur déjà "
-        "présent et employé — l'article L. 435-4 — <strong>disparaît le "
-        "31 décembre 2026</strong>. Le Gouvernement l'a confirmé devant le "
-        "Sénat le 5 novembre 2026 et a dit ce qui la remplacera : une "
-        "circulaire, « publiée avant la fin de l'année », qui « devrait "
-        "reprendre l'économie du dispositif » dans le cadre de l'admission "
-        "exceptionnelle de droit commun (article L. 435-1). Autrement dit, le "
-        "retour au pur pouvoir discrétionnaire : des critères qu'aucun "
-        "étranger ne peut opposer à un préfet, et qu'une autre circulaire "
-        "peut défaire. Notre engagement 1 n'est donc pas une proposition en "
-        "l'air : c'est la réponse à un vide juridique daté.</p>",
+        "présent et employé — l'article L. 435-4 — <strong>a pris fin le "
+        "31 décembre 2026</strong>. Ce qui la remplace : "
+        + g.circulaire_travail() +
+        ", qui « devrait reprendre l'économie du dispositif » dans le cadre "
+        "de l'admission exceptionnelle de droit commun (article L. 435-1). "
+        "Autrement dit, le retour au pur pouvoir discrétionnaire : des "
+        "critères qu'aucun étranger ne peut opposer à un préfet, et qu'une "
+        "autre circulaire peut défaire. Notre engagement 1 n'est donc pas une "
+        "proposition en l'air : c'est la réponse à un vide juridique ouvert "
+        "le 1er janvier 2027.</p>",
         "avertissement")
 
     corps += """

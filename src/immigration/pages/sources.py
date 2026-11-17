@@ -65,7 +65,7 @@ SOURCES = [
          "d'asile",
          "Le texte de référence : conditions de séjour, procédure d'asile, "
          "éloignement. L'article L. 435-4, voie de régularisation par les "
-         "métiers en tension, expire le 31 décembre 2026."),
+         "métiers en tension, a pris fin le 31 décembre 2026."),
         ("https://www.senat.fr/seances/s202611/s20261105/"
          "s20261105004.html",
          "Sénat, séance du 5 novembre 2026 — proposition de loi n° 865 "
@@ -279,6 +279,18 @@ SOURCES = [
          "son sens."),
     ]),
 ]
+
+# La circulaire qui remplace l'article L. 435-4 rejoint le droit en vigueur,
+# juste après la séance du Sénat où elle a été annoncée, dès qu'elle est
+# renseignée dans `gabarit.CIRCULAIRE_TRAVAIL`.
+if g.CIRCULAIRE_TRAVAIL is not None:
+    _date, _intitule, _url = g.CIRCULAIRE_TRAVAIL
+    _droit = dict(SOURCES)["Le droit en vigueur"]
+    _droit.insert(2, (
+        _url, _intitule,
+        "Ce qui remplace l'article L. 435-4 depuis le 1er janvier 2027 : des "
+        "critères d'admission exceptionnelle par le travail, au titre de "
+        "l'article L. 435-1, qu'aucun étranger ne peut opposer à un préfet."))
 
 
 def construire() -> str:
@@ -515,6 +527,23 @@ Elle ne corrige aucune erreur ; elle tient le site à jour.</p>
           "Expliqué dans la fiche : 1 700 places sont financées par un fonds "
           "européen, hors mission"]],
         legende="Ce que la relecture de novembre 2026 a mis à jour.",
+        classes_colonnes=["long", "long"])
+
+    corps += """
+<h3 id="mise-a-jour-janvier-2027">La relecture de janvier 2027</h3>
+<p>Une relecture pour une échéance que le site annonçait depuis sa première
+version. Elle ne corrige aucune erreur ; elle met les pages au passé.</p>
+"""
+    corps += g.tableau(
+        ["Ce qui a changé", "Ce que le site en dit maintenant"],
+        [["L'article L. 435-4 a pris fin le 31 décembre 2026, sans "
+          "prorogation",
+          "Les pages <a href=\"aujourdhui.html\">Aujourd'hui</a>, "
+          "<a href=\"programme.html\">Programme</a> et "
+          "<a href=\"parcours.html\">Parcours</a> en parlent au passé ; la "
+          "régularisation par le travail repose désormais sur "
+          + g.circulaire_travail(longue=False)]],
+        legende="Ce que la relecture de janvier 2027 a mis à jour.",
         classes_colonnes=["long", "long"])
 
     corps += """
